@@ -7,7 +7,7 @@ export const site = {
   title: "Software Developer | GenAI & Automation Engineering",
   location: "Chennai, Tamil Nadu, India",
   // Update to your real domain after deploying (or set NEXT_PUBLIC_SITE_URL in Vercel).
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://sinehan.vercel.app",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://sinehan001.vercel.app",
   tagline: "I build reliable backends and GenAI systems that work on real data.",
   description:
     "Sinehan is a Software Developer in Chennai specialising in Node.js backends, microservices, and GenAI systems (RAG, LLM-to-SQL) built on real data.",
