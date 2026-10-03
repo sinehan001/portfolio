@@ -1,19 +1,14 @@
-/** Name split into letters that rise in on load and bounce on hover (pure CSS). */
+/** Name forged letter by letter in brushed steel (pure CSS). */
 export default function AnimatedName({ name }: { name: string }) {
-  const letters = [...name];
-  const last = Math.max(letters.length - 1, 1);
   return (
     <>
       <span className="sr-only">{name}</span>
-      <span aria-hidden="true" className="inline-block">
-        {letters.map((ch, i) => (
+      <span aria-hidden="true" className="glow-text inline-block">
+        {[...name].map((ch, i) => (
           <span
             key={i}
-            className="hero-letter"
-            style={{
-              animationDelay: `${0.1 + i * 0.07}s`,
-              color: `color-mix(in oklab, var(--accent) ${Math.round(100 - (i / last) * 100)}%, var(--accent2))`,
-            }}
+            className="forge-letter text-steel"
+            style={{ animationDelay: `${0.15 + i * 0.09}s` }}
           >
             {ch}
           </span>

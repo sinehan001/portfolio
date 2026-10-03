@@ -14,7 +14,9 @@ export default function Footer() {
             <kbd className="rounded border border-line px-1.5 py-0.5 font-mono text-xs">Ctrl K</kbd>{" "}
             to navigate
           </span>
-          <span className="rounded-full border border-line px-2 py-0.5 font-mono text-xs">v2</span>
+          <span className="font-display whitespace-nowrap rounded-full border border-accent2/50 px-2.5 py-0.5 text-[11px] uppercase tracking-[0.2em] text-accent2">
+            Doomsday · v3
+          </span>
         </p>
       </div>
     </footer>

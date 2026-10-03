@@ -47,7 +47,8 @@ vercel --prod   # production
 | Version | Where | Notes |
 | --- | --- | --- |
 | **v1** | tag `v1.0.0`, branch `v1` | Clean static portfolio, Lighthouse 100 across the board |
-| **v2** | branch `v2` | Interactive edition: neural-network hero canvas, typeable terminal, Ctrl+K command palette, cursor follower, magnetic buttons, circular theme transition, and a playable simulation in every project |
+| **v2** | tag `v2.0.0`, branch `v2` | Interactive edition: neural-network hero canvas, typeable terminal, Ctrl+K command palette, cursor follower, magnetic buttons, circular theme transition, and a playable simulation in every project |
+| **v3 · Doomsday** | branch `doomsday` | Iron & emerald theme (Parchment light mode), Cinzel display type, original SVG iron mask with cursor-tracking eyes, rotating gold sigil, rising embers, lightning on click, Iron Console, hold-to-summon contact |
 
 Vercel builds a preview URL for every branch, so `v1` stays viewable after `v2` is merged into `main`.
 
@@ -59,3 +60,14 @@ Vercel builds a preview URL for every branch, so `v1` stays viewable after `v2` 
 - `components/demos/*`: simulated RAG pipeline, live API dashboard, RabbitMQ queue, rolling vs. big-bang migration (all sample data, clearly labelled)
 
 All motion respects `prefers-reduced-motion`.
+
+### v3 Doomsday pieces
+
+- `components/doom/IronMask.tsx`: original SVG mask; eyes follow the cursor, click to fire lightning
+- `components/doom/LightningLayer.tsx`: full-screen lightning renderer (`strike()` in `lib/doom.ts`)
+- `components/doom/EmberField.tsx`: rising embers; click empty hero space to call lightning
+- `components/doom/Sigil.tsx`, `Ornament.tsx`, `MaskGlyph.tsx`: decorative SVG art
+- `components/doom/SummonButton.tsx`: press-and-hold to email
+- Lore copy lives in `doom` inside `lib/content.ts`
+
+All artwork is original SVG drawn for this site; no third-party images are used.

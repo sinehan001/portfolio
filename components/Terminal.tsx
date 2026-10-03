@@ -11,11 +11,12 @@ import {
   skillGroups,
 } from "@/lib/content";
 import { toggleTheme } from "@/lib/theme";
+import { strike } from "@/lib/doom";
 
 type Line = { id: number; kind: "in" | "out"; body: ReactNode };
 
 const SECTIONS = ["about", "skills", "experience", "projects", "education", "contact"];
-const SUGGESTIONS = ["help", "projects", "skills", "sudo hire-me"];
+const SUGGESTIONS = ["help", "projects", "lightning", "sudo hire-me"];
 
 const A = ({ children }: { children: ReactNode }) => (
   <span className="text-accent">{children}</span>
@@ -156,6 +157,33 @@ const COMMANDS: Record<string, { desc: string; run: (args: string[]) => ReactNod
       </span>
     ),
   },
+  lightning: {
+    desc: "call down the storm",
+    run: () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      for (let i = 0; i < 4; i++) {
+        window.setTimeout(
+          () => strike({ x: w * (0.15 + Math.random() * 0.7), y: h * (0.35 + Math.random() * 0.5) }),
+          i * 160,
+        );
+      }
+      return <span className="text-accent">⚡ the sky answers.</span>;
+    },
+  },
+  kneel: {
+    desc: "show respect",
+    run: () => "Rise. I prefer collaborators to subjects. Type 'contact'.",
+  },
+  doom: {
+    desc: "about this edition",
+    run: () => (
+      <span>
+        <B>Doomsday Edition</B> · v3. Iron, emerald and a little sorcery. Original art, no
+        borrowed masks.
+      </span>
+    ),
+  },
   clear: { desc: "clear the screen", run: () => "CLEAR" },
   sudo: {
     desc: "",
@@ -269,7 +297,7 @@ export default function Terminal() {
   return (
     <div className="w-full max-w-lg">
       <div
-        className="relative overflow-hidden rounded-2xl border border-line bg-surface/85 shadow-2xl shadow-black/30 backdrop-blur-xl"
+        className="iron no-rivets relative overflow-hidden rounded-2xl border border-line shadow-2xl shadow-black/40"
         data-cursor="Type"
         onClick={() => inputRef.current?.focus({ preventScroll: true })}
       >
@@ -278,10 +306,10 @@ export default function Terminal() {
           <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
           <span className="h-3 w-3 rounded-full bg-green-400/80" />
           <span className="pointer-events-none absolute inset-x-0 text-center font-mono text-xs text-muted">
-            ~/sinehan <span className="opacity-60">— zsh</span>
+            citadel<span className="opacity-60">://console</span>
           </span>
           <span className="ml-auto rounded bg-accent-soft px-2 py-0.5 font-mono text-[10px] text-accent">
-            interactive
+            obeys
           </span>
         </div>
         <div
@@ -294,7 +322,7 @@ export default function Terminal() {
           {lines.map((l) =>
             l.kind === "in" ? (
               <div key={l.id}>
-                <span className="text-emerald-400">➜</span> <A>~</A> {l.body}
+                <span className="text-accent2">λ</span> {l.body}
               </div>
             ) : (
               <div key={l.id} className="mb-2 whitespace-pre-wrap break-words">
@@ -303,7 +331,7 @@ export default function Terminal() {
             ),
           )}
           <div className="flex items-center">
-            <span className="text-emerald-400">➜</span>&nbsp;<A>~</A>&nbsp;
+            <span className="text-accent2">λ</span>&nbsp;
             <label htmlFor="term-input" className="sr-only">
               Terminal command
             </label>
@@ -317,7 +345,7 @@ export default function Terminal() {
               autoCapitalize="off"
               spellCheck={false}
               className="min-w-0 flex-1 bg-transparent caret-[var(--accent)] outline-none"
-              placeholder="type a command…"
+              placeholder="speak a command…"
             />
           </div>
         </div>

@@ -13,8 +13,8 @@ function Row({ items, reverse }: { items: string[]; reverse?: boolean }) {
         {doubled.map((t, i) => (
           <span
             key={`${t}-${i}`}
-            className={`mx-5 flex items-center gap-10 whitespace-nowrap font-semibold tracking-tight ${
-              reverse ? "text-base text-muted/70" : "text-2xl text-muted md:text-3xl"
+            className={`mx-5 flex items-center gap-10 whitespace-nowrap font-semibold ${
+              reverse ? "text-base text-muted/70" : "font-display text-2xl uppercase tracking-[0.12em] text-muted md:text-3xl"
             }`}
           >
             {t}

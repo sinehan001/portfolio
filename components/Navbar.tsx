@@ -7,6 +7,7 @@ import { OPEN_PALETTE_EVENT } from "@/lib/theme";
 import ThemeToggle from "./ThemeToggle";
 import ScrollProgress from "./ScrollProgress";
 import { CloseIcon, MenuIcon } from "./Icons";
+import MaskGlyph from "./doom/MaskGlyph";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -43,11 +44,9 @@ export default function Navbar() {
         aria-label="Primary"
         className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5"
       >
-        <a href="#top" className="group text-lg font-bold tracking-tight">
-          {site.name}
-          <span className="text-gradient inline-block transition-transform group-hover:scale-150">
-            .
-          </span>
+        <a href="#top" className="group flex items-center gap-2.5">
+          <MaskGlyph className="h-7 w-7 transition-transform duration-500 group-hover:rotate-[360deg]" />
+          <span className="font-display text-base font-bold uppercase tracking-[0.22em]">{site.name}</span>
         </a>
 
         <ul className="hidden items-center gap-1 text-sm text-muted md:flex">
@@ -65,7 +64,7 @@ export default function Navbar() {
                 <a
                   href={l.href}
                   aria-current={isActive ? "true" : undefined}
-                  className={`relative block rounded-full px-3 py-1.5 transition hover:text-fg ${
+                  className={`font-display relative block rounded-full px-3 py-1.5 text-[13px] uppercase tracking-[0.12em] transition hover:text-fg ${
                     isActive ? "text-fg" : ""
                   }`}
                 >

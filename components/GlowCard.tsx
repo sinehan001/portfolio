@@ -35,7 +35,7 @@ export default function GlowCard({
     <Tag
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      className={`glow-card rounded-2xl border border-line bg-surface ${className}`}
+      className={`glow-card iron rounded-2xl border border-line bg-surface ${className}`}
     >
       {children}
     </Tag>

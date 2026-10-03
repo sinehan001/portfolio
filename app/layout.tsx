@@ -1,12 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Cinzel, Inter } from "next/font/google";
 import { site } from "@/lib/content";
 import CustomCursor from "@/components/CustomCursor";
 import CommandPalette from "@/components/CommandPalette";
+import LightningLayer from "@/components/doom/LightningLayer";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
   subsets: ["latin"],
   display: "swap",
 });
@@ -35,8 +42,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
-    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#040705" },
+    { media: "(prefers-color-scheme: light)", color: "#efe7d4" },
   ],
 };
 
@@ -45,12 +52,13 @@ const themeScript = `try{if(localStorage.getItem("theme")!=="light")document.doc
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} dark`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${cinzel.variable} dark`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="antialiased">
         {children}
+        <LightningLayer />
         <CommandPalette />
         <CustomCursor />
       </body>

@@ -277,3 +277,29 @@ export const hero = {
     "Linux",
   ],
 };
+
+/** v3 · Doomsday Edition copy. Section "lore" names sit above the plain-language titles. */
+export const doom = {
+  edition: "Doomsday Edition",
+  rotating: ["reliable backends", "GenAI systems", "automation pipelines"],
+  taglineEnd: "that bend real data to their will.",
+  sigil: "FORGED IN CODE ✦ BOUND BY DATA ✦ RULED BY LOGIC ✦ ",
+  lore: {
+    about: "The Origin",
+    skills: "The Arsenal",
+    experience: "The Campaigns",
+    projects: "The Machines",
+    education: "The Credentials",
+    contact: "The Summoning",
+  },
+  console: {
+    eyebrow: "The Iron Console",
+    title: "Speak, and the machine obeys",
+    text: "A working terminal wired to this site. Ask it about my skills, projects or experience. Or try the commands nobody tells you about.",
+  },
+  summon: {
+    hold: "Hold to summon",
+    holding: "Summoning…",
+    done: "Summoned",
+  },
+};

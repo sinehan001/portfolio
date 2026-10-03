@@ -14,14 +14,13 @@ export default function RotatingWord({ words }: { words: readonly string[] }) {
   }, [reduce, words.length]);
 
   return (
-    <span className="relative inline-flex h-[1.2em] overflow-hidden align-bottom leading-[1.2]"
-      style={{ clipPath: "inset(0 -0.2em)" }}>
+    <span className="relative inline-flex h-[1.2em] overflow-hidden align-bottom leading-[1.2]">
       <span className="sr-only">{words.join(", ")}</span>
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={words[i]}
           aria-hidden="true"
-          className="text-gradient whitespace-nowrap"
+          className="whitespace-nowrap text-accent"
           initial={{ y: "100%", opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}

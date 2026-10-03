@@ -16,22 +16,20 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: 80,
-          background: "#09090b",
-          color: "#fafafa",
-          fontFamily: "sans-serif",
+          background: "radial-gradient(circle at 80% 40%, #0f3a20 0%, #040705 55%)",
+          color: "#e9f0ea",
+          fontFamily: "serif",
         }}
       >
-        <div style={{ fontSize: 28, color: "#67e8f9", marginBottom: 24 }}>
-          Portfolio
+        <div style={{ fontSize: 26, color: "#d4af37", letterSpacing: 8, marginBottom: 24 }}>
+          ✦ DOOMSDAY EDITION ✦
         </div>
-        <div style={{ fontSize: 120, fontWeight: 700, letterSpacing: -3 }}>
-          {site.name}
+        <div style={{ fontSize: 130, fontWeight: 700, letterSpacing: 4, color: "#f1f5f6" }}>
+          {site.name.toUpperCase()}
         </div>
-        <div style={{ fontSize: 42, color: "#a1a1aa", marginTop: 16 }}>
-          {site.title}
-        </div>
-        <div style={{ fontSize: 30, marginTop: 48, maxWidth: 900 }}>
-          {site.tagline}
+        <div style={{ fontSize: 40, color: "#9bab9f", marginTop: 12 }}>{site.title}</div>
+        <div style={{ fontSize: 30, marginTop: 44, maxWidth: 900, color: "#3ddc84" }}>
+          I forge reliable backends and GenAI systems that bend real data to their will.
         </div>
       </div>
     ),
