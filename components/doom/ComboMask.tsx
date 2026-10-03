@@ -2,7 +2,25 @@
 
 import { useEffect, useRef } from "react";
 import { strike } from "@/lib/doom";
-import { COMBO_MASK_PATHS, COMBO_SILHOUETTE } from "@/lib/maskCombo";
+import { COMBO_MASK_PATHS, COMBO_REGIONS, COMBO_SILHOUETTE } from "@/lib/maskCombo";
+
+// Which gradient fills each cell of the line art (index = COMBO_REGIONS index).
+const IRON_GOLD = [5, 6, 15, 22, 28, 29];
+const IRON_RED = [0, 2, 3, 4, 7, 9, 12, 21, 27];
+const IRON_EYE = [14, 16];
+const DOOM_HOOD = [1];
+const DOOM_STEEL = [8, 10, 20, 23];
+const DOOM_DARK = [11, 13, 19, 24, 25, 26];
+const DOOM_EYE = [17, 18];
+const REGION_FILL: Record<number, string> = Object.fromEntries([
+  ...IRON_GOLD.map((i) => [i, "cm-gold"]),
+  ...IRON_RED.map((i) => [i, "cm-red"]),
+  ...IRON_EYE.map((i) => [i, "cm-eye-iron"]),
+  ...DOOM_HOOD.map((i) => [i, "cm-hood"]),
+  ...DOOM_STEEL.map((i) => [i, "cm-steel"]),
+  ...DOOM_DARK.map((i) => [i, "cm-steel-dark"]),
+  ...DOOM_EYE.map((i) => [i, "cm-eye-doom"]),
+]);
 
 /**
  * Alternate hero mask built from the supplied line-art SVG, rendered in brushed
@@ -71,26 +89,38 @@ export default function ComboMask() {
       <svg viewBox="0 0 1588 1540" className="h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)]" aria-hidden="true">
         <defs>
           {/* Iron Man: candy red shell, gold faceplate */}
-          <linearGradient id="cm-red" x1="0" y1="0" x2="0.4" y2="1">
+          <linearGradient id="cm-red" gradientUnits="userSpaceOnUse" x1="3500" y1="13600" x2="6500" y2="1700">
             <stop offset="0" stopColor="#ff4a3d" />
             <stop offset="0.45" stopColor="#c2161c" />
             <stop offset="1" stopColor="#5c060a" />
           </linearGradient>
-          <linearGradient id="cm-gold" x1="0" y1="0" x2="0.3" y2="1">
+          <linearGradient id="cm-gold" gradientUnits="userSpaceOnUse" x1="5000" y1="12500" x2="7000" y2="2500">
             <stop offset="0" stopColor="#fff1b0" />
             <stop offset="0.4" stopColor="#f2bf3a" />
             <stop offset="1" stopColor="#9a6410" />
           </linearGradient>
           {/* Doom: gunmetal steel, green hood */}
-          <linearGradient id="cm-steel" x1="1" y1="0" x2="0.3" y2="1">
+          <linearGradient id="cm-steel" gradientUnits="userSpaceOnUse" x1="12500" y1="13000" x2="8500" y2="2000">
             <stop offset="0" stopColor="#f2f5f6" />
             <stop offset="0.45" stopColor="#a3aeb5" />
             <stop offset="1" stopColor="#475056" />
           </linearGradient>
-          <linearGradient id="cm-hood" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="cm-hood" gradientUnits="userSpaceOnUse" x1="0" y1="13600" x2="0" y2="1700">
             <stop offset="0" stopColor="#2a9a4c" />
             <stop offset="0.6" stopColor="#156b33" />
             <stop offset="1" stopColor="#0a3519" />
+          </linearGradient>
+          <linearGradient id="cm-steel-dark" gradientUnits="userSpaceOnUse" x1="0" y1="11000" x2="0" y2="3000">
+            <stop offset="0" stopColor="#6c767d" />
+            <stop offset="1" stopColor="#2b3135" />
+          </linearGradient>
+          <linearGradient id="cm-eye-iron" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#ffffff" />
+            <stop offset="1" stopColor="#bff4ff" />
+          </linearGradient>
+          <linearGradient id="cm-eye-doom" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#b8ffd6" />
+            <stop offset="1" style={{ stopColor: "var(--accent)" }} />
           </linearGradient>
           <radialGradient id="cm-shade" cx="0.45" cy="0.35" r="0.7">
             <stop offset="0.5" stopColor="#000" stopOpacity="0" />
@@ -117,20 +147,13 @@ export default function ComboMask() {
           </filter>
         </defs>
 
-        {/* Colour fills, clipped to the mask outline */}
-        <g clipPath="url(#cm-sil)">
-          <rect x="0" y="0" width="797" height="1540" fill="url(#cm-red)" />
-          <path
-            d="M797 300 L643 312 L632 560 L453 625 L426 770 L433 961 L529 1152 L643 1305 L797 1350 Z"
-            fill="url(#cm-gold)"
-          />
-          <rect x="797" y="0" width="791" height="1540" fill="url(#cm-steel)" />
-          <path
-            d="M815 170 L1083 250 L1254 500 L1320 770 L1260 1080 L1121 1270 L968 1370 L987 1305 L1083 1152 L1121 885 L1113 618 L1044 407 L892 274 Z"
-            fill="url(#cm-hood)"
-          />
-          <rect x="0" y="0" width="1588" height="1540" fill="url(#cm-shade)" />
+        {/* Colour fills: each white cell of the line art is painted on its own, so colour stops exactly at the ink */}
+        <g transform="translate(0,1540) scale(0.1,-0.1)">
+          {COMBO_REGIONS.map((r, i) => (
+            <path key={i} d={r.d} fill={`url(#${REGION_FILL[i] ?? "cm-steel"})`} />
+          ))}
         </g>
+        <rect x="0" y="0" width="1588" height="1540" fill="url(#cm-shade)" clipPath="url(#cm-sil)" />
 
         {/* Eyes: Iron Man white-hot, Doom emerald */}
         <g className="eye-glow">
