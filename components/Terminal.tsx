@@ -179,8 +179,7 @@ const COMMANDS: Record<string, { desc: string; run: (args: string[]) => ReactNod
     desc: "about this edition",
     run: () => (
       <span>
-        <B>Doomsday Edition</B> · v3. Iron, emerald and a little sorcery. Original art, no
-        borrowed masks.
+        <B>Doomsday Edition</B> · v3. Iron, emerald and a little sorcery.
       </span>
     ),
   },

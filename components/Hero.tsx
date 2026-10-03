@@ -6,6 +6,7 @@ import Magnetic from "./Magnetic";
 import GlowCard from "./GlowCard";
 import EmberField from "./doom/EmberField";
 import IronMask from "./doom/IronMask";
+import ComboMask from "./doom/ComboMask";
 import Sigil from "./doom/Sigil";
 
 const btn =
@@ -87,7 +88,7 @@ export default function Hero() {
             className="hover-breathe pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{ background: "radial-gradient(circle, var(--glow), transparent 70%)" }}
           />
-          <IronMask />
+          {doom.mask === "combo" ? <ComboMask /> : <IronMask />}
         </div>
       </div>
 

@@ -281,6 +281,8 @@ export const hero = {
 /** v3 · Doomsday Edition copy. Section "lore" names sit above the plain-language titles. */
 export const doom = {
   edition: "Doomsday Edition",
+  /** Hero mask: "original" (hand-drawn SVG) or "combo" (the supplied line-art SVG). */
+  mask: "combo" as "original" | "combo",
   rotating: ["reliable backends", "GenAI systems", "automation pipelines"],
   taglineEnd: "that bend real data to their will.",
   sigil: "FORGED IN CODE ✦ BOUND BY DATA ✦ RULED BY LOGIC ✦ ",

@@ -70,4 +70,4 @@ All motion respects `prefers-reduced-motion`.
 - `components/doom/SummonButton.tsx`: press-and-hold to email
 - Lore copy lives in `doom` inside `lib/content.ts`
 
-All artwork is original SVG drawn for this site; no third-party images are used.
+Hero mask: set `doom.mask` in `lib/content.ts` to `"combo"` (the supplied line-art SVG in `lib/maskCombo.ts`, rendered by `components/doom/ComboMask.tsx`) or `"original"` (the hand-drawn `IronMask.tsx`). The combo art is third-party; make sure its licence allows display on a public website.
