@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { strike } from "@/lib/doom";
 
 const FACE =
-  "M200 52 C264 52 302 96 306 166 L310 262 L302 330 C294 358 274 372 254 380 L246 404 C232 420 168 420 154 404 L146 380 C126 372 106 358 98 330 L90 262 L94 166 C98 96 136 52 200 52 Z";
+  "M200 52 C264 52 302 96 306 166 L310 262 L304 340 L256 388 L246 418 L154 418 L144 388 L96 340 L90 262 L94 166 C98 96 136 52 200 52 Z";
 
 // Rivet rows: brow arcs, under-eye lines and cheek columns (mirrored).
 const RIVETS: [number, number][] = (() => {
@@ -179,22 +179,25 @@ export default function IronMask() {
           <rect x="186" y="44" width="28" height="14" rx="3" fill="url(#m-plate-dark)" />
 
           {/* Cheek panels */}
-          <path d="M90 262 L148 278 C154 306 160 330 170 350 L148 384 C126 374 104 360 96 330 Z" fill="url(#m-plate-dark)" />
-          <path d="M310 262 L252 278 C246 306 240 330 230 350 L252 384 C274 374 296 360 304 330 Z" fill="url(#m-plate-dark)" />
-          <path d="M104 278 L108 356" stroke="#2a3034" strokeWidth="2" opacity="0.7" />
-          <path d="M296 278 L292 356" stroke="#2a3034" strokeWidth="2" opacity="0.7" />
+          <path d="M90 262 L150 278 L168 350 L144 388 L96 340 Z" fill="url(#m-plate-dark)" />
+          <path d="M310 262 L250 278 L232 350 L256 388 L304 340 Z" fill="url(#m-plate-dark)" />
+          <path d="M104 278 L108 348" stroke="#2a3034" strokeWidth="2" opacity="0.7" />
+          <path d="M296 278 L292 348" stroke="#2a3034" strokeWidth="2" opacity="0.7" />
 
           {/* Under-eye plates */}
           <path d="M98 258 L190 266 L186 282 L100 274 Z" fill="url(#m-plate)" opacity="0.85" />
           <path d="M302 258 L210 266 L214 282 L300 274 Z" fill="url(#m-plate)" opacity="0.85" />
 
           {/* Stepped chin */}
-          <path d="M150 352 L250 352 L244 368 L156 368 Z" fill="url(#m-plate)" opacity="0.85" />
-          <path d="M156 372 C180 380 220 380 244 372 L240 386 C218 394 182 394 160 386 Z" fill="url(#m-plate-dark)" />
-          <path d="M162 392 C184 400 216 400 238 392 L234 406 C216 414 184 414 166 406 Z" fill="url(#m-plate)" opacity="0.8" />
-          <ellipse cx="200" cy="414" rx="30" ry="6" fill="#000" opacity="0.35" />
+          {/* Stepped chin plates span edge to edge between the straight jaw lines */}
+          <path d="M168 350 L232 350 L235 366 L165 366 Z" fill="url(#m-plate)" opacity="0.9" />
+          <path d="M164 370 L236 370 L239.5 386 L160.5 386 Z" fill="url(#m-plate-dark)" />
+          <path d="M160 390 L240 390 L243 406 L157 406 Z" fill="url(#m-plate)" opacity="0.85" />
+          <path d="M156.5 409 L243.5 409 L246 418 L154 418 Z" fill="url(#m-plate-dark)" />
         </g>
         <path d={FACE} fill="url(#m-shade)" />
+        <path d="M150 278 L168 350 L154 418 M250 278 L232 350 L246 418" stroke="#2a3034" strokeWidth="2" fill="none" strokeLinejoin="round" />
+        <path d="M168 350 L144 388 M232 350 L256 388" stroke="#2a3034" strokeWidth="1.5" fill="none" opacity="0.8" />
 
         {/* Eye openings */}
         <path d="M114 224 L186 236 L184 260 L118 255 Z" fill="#030504" />
