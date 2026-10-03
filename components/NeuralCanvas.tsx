@@ -80,7 +80,7 @@ export default function NeuralCanvas() {
           n.vy += (dy / d) * 0.035;
         }
         for (const p of pulses) {
-          const radius = (now - p.t) * 0.55;
+          const radius = Math.max(0, now - p.t) * 0.55;
           const px = n.x - p.x;
           const py = n.y - p.y;
           const pd = Math.hypot(px, py);
@@ -135,7 +135,8 @@ export default function NeuralCanvas() {
       }
 
       for (const p of pulses) {
-        const age = now - p.t;
+        const age = Math.max(0, now - p.t);
+        if (age === 0) continue;
         ctx.strokeStyle = rgba(colors.b, Math.max(0, 0.5 - age / 2200));
         ctx.lineWidth = 2;
         ctx.beginPath();
