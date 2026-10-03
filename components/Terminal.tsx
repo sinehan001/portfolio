@@ -273,11 +273,13 @@ export default function Terminal() {
         data-cursor="Type"
         onClick={() => inputRef.current?.focus({ preventScroll: true })}
       >
-        <div className="flex items-center gap-2 border-b border-line px-4 py-3">
+        <div className="relative flex items-center gap-2 border-b border-line px-4 py-3">
           <span className="h-3 w-3 rounded-full bg-red-400/80" />
           <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
           <span className="h-3 w-3 rounded-full bg-green-400/80" />
-          <span className="ml-3 font-mono text-xs text-muted">sinehan@portfolio: ~</span>
+          <span className="pointer-events-none absolute inset-x-0 text-center font-mono text-xs text-muted">
+            ~/sinehan <span className="opacity-60">— zsh</span>
+          </span>
           <span className="ml-auto rounded bg-accent-soft px-2 py-0.5 font-mono text-[10px] text-accent">
             interactive
           </span>
