@@ -128,6 +128,10 @@ export default function IronMask() {
             <stop offset="0.45" stopColor="#eef2f4" />
             <stop offset="1" stopColor="#535d64" />
           </linearGradient>
+          <linearGradient id="m-mouth" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#010202" />
+            <stop offset="1" stopColor="#1a2024" />
+          </linearGradient>
           <radialGradient id="m-shade" cx="0.5" cy="0.36" r="0.66">
             <stop offset="0.55" stopColor="#000" stopOpacity="0" />
             <stop offset="1" stopColor="#000" stopOpacity="0.55" />
@@ -190,10 +194,10 @@ export default function IronMask() {
 
           {/* Stepped chin */}
           {/* Stepped chin plates span edge to edge between the straight jaw lines */}
-          <path d="M168 350 L232 350 L235 366 L165 366 Z" fill="url(#m-plate)" opacity="0.9" />
-          <path d="M164 370 L236 370 L239.5 386 L160.5 386 Z" fill="url(#m-plate-dark)" />
-          <path d="M160 390 L240 390 L243 406 L157 406 Z" fill="url(#m-plate)" opacity="0.85" />
-          <path d="M156.5 409 L243.5 409 L246 418 L154 418 Z" fill="url(#m-plate-dark)" />
+          <path d="M158.5 312 L241.5 312 L238.7 323 L161.3 323 Z" fill="url(#m-plate)" opacity="0.9" />
+          <path d="M165 364 L235 364 L238.2 380 L161.8 380 Z" fill="url(#m-plate-dark)" />
+          <path d="M161 384 L239 384 L242.7 402 L157.3 402 Z" fill="url(#m-plate)" opacity="0.85" />
+          <path d="M156.7 405 L243.3 405 L246 418 L154 418 Z" fill="url(#m-plate-dark)" />
         </g>
         <path d={FACE} fill="url(#m-shade)" />
         <path d="M150 278 L168 350 L154 418 M250 278 L232 350 L246 418" stroke="#2a3034" strokeWidth="2" fill="none" strokeLinejoin="round" />
@@ -235,12 +239,18 @@ export default function IronMask() {
         <path d="M200 222 L200 296" stroke="#ffffff" strokeOpacity="0.35" strokeWidth="2" />
         <path d="M180 300 L192 308 M220 300 L208 308" stroke="#2a3034" strokeWidth="2" strokeLinecap="round" />
 
-        {/* Mouth slot with grille */}
-        <path d="M160 326 L240 326 L236 344 L164 344 Z" fill="#030504" />
-        <rect x="190" y="322" width="20" height="10" rx="2" fill="url(#m-plate-dark)" />
-        {[172, 184, 216, 228].map((x) => (
-          <line key={x} x1={x} x2={x} y1="331" y2="342" stroke="#6f7980" strokeWidth="2" />
-        ))}
+        {/* Mouth: wide opening between the cheek panels, frowning at the corners */}
+        <path d="M161.3 323 L238.7 323 L233.2 345 C218 339 182 339 166.8 345 Z" fill="url(#m-mouth)" />
+        <path d="M161.3 323 L238.7 323" stroke="#1b2024" strokeWidth="2" />
+        <rect x="191" y="323" width="18" height="7" rx="1.5" fill="url(#m-plate-dark)" stroke="#1b2024" strokeWidth="0.8" />
+        {/* Lower lip plate follows the frown down into the chin steps */}
+        <path
+          d="M166.8 345 C182 339 218 339 233.2 345 L234.1 360 C220 355 180 355 165.9 360 Z"
+          fill="url(#m-plate)"
+          stroke="#2a3034"
+          strokeWidth="1.2"
+        />
+        <path d="M172 346 C186 342 214 342 228 346" stroke="#ffffff" strokeOpacity="0.45" strokeWidth="1.5" fill="none" />
 
         {/* Rivets */}
         {RIVETS.map(([cx, cy], i) => (
