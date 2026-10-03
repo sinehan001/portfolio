@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { toggleTheme } from "@/lib/theme";
 import { MoonIcon, SunIcon } from "./Icons";
 
 function subscribe(cb: () => void) {
@@ -19,20 +20,12 @@ export default function ThemeToggle() {
     () => true,
   );
 
-  const toggle = () => {
-    const next = !dark;
-    document.documentElement.classList.toggle("dark", next);
-    try {
-      localStorage.setItem("theme", next ? "dark" : "light");
-    } catch {}
-  };
-
   return (
     <button
       type="button"
-      onClick={toggle}
+      onClick={(e) => toggleTheme(e.clientX, e.clientY)}
       aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
-      className="grid h-9 w-9 place-items-center rounded-full border border-line text-muted transition hover:text-fg"
+      className="grid h-9 w-9 place-items-center rounded-full border border-line text-muted transition hover:rotate-12 hover:text-fg"
     >
       {dark ? <SunIcon /> : <MoonIcon />}
     </button>

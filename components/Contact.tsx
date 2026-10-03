@@ -3,6 +3,7 @@ import Section from "./Section";
 import Reveal from "./Reveal";
 import CopyEmail from "./CopyEmail";
 import { MailIcon } from "./Icons";
+import Magnetic from "./Magnetic";
 
 export default function Contact() {
   return (
@@ -19,12 +20,14 @@ export default function Contact() {
             {site.email}
           </p>
           <div className="relative mt-8 flex flex-wrap gap-3">
+            <Magnetic>
             <a
               href={`mailto:${site.email}`}
-              className="bg-gradient-accent inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-on-accent shadow-lg shadow-accent/20 transition hover:-translate-y-0.5"
+              className="bg-gradient-accent inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-on-accent shadow-lg shadow-accent/20 transition hover:-translate-y-0.5"
             >
               <MailIcon /> Send an email
             </a>
+            </Magnetic>
             <CopyEmail email={site.email} />
           </div>
           <p className="relative mt-8 text-sm text-muted">

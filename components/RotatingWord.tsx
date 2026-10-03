@@ -14,7 +14,8 @@ export default function RotatingWord({ words }: { words: readonly string[] }) {
   }, [reduce, words.length]);
 
   return (
-    <span className="relative inline-flex h-[1.2em] overflow-hidden align-bottom leading-[1.2]">
+    <span className="relative inline-flex h-[1.2em] overflow-hidden align-bottom leading-[1.2]"
+      style={{ clipPath: "inset(0 -0.2em)" }}>
       <span className="sr-only">{words.join(", ")}</span>
       <AnimatePresence mode="wait" initial={false}>
         <motion.span

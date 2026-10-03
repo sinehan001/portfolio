@@ -41,3 +41,21 @@ npm i -g vercel
 vercel          # preview
 vercel --prod   # production
 ```
+
+## Versions
+
+| Version | Where | Notes |
+| --- | --- | --- |
+| **v1** | tag `v1.0.0`, branch `v1` | Clean static portfolio, Lighthouse 100 across the board |
+| **v2** | branch `v2` | Interactive edition: neural-network hero canvas, typeable terminal, Ctrl+K command palette, cursor follower, magnetic buttons, circular theme transition, and a playable simulation in every project |
+
+Vercel builds a preview URL for every branch, so `v1` stays viewable after `v2` is merged into `main`.
+
+### v2 interactive pieces
+
+- `components/NeuralCanvas.tsx`: canvas network that follows the cursor; click for a shockwave
+- `components/Terminal.tsx`: commands like `help`, `projects`, `goto contact`, `sudo hire-me`
+- `components/CommandPalette.tsx`: Ctrl/Cmd + K
+- `components/demos/*`: simulated RAG pipeline, live API dashboard, RabbitMQ queue, rolling vs. big-bang migration (all sample data, clearly labelled)
+
+All motion respects `prefers-reduced-motion`.

@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { site } from "@/lib/content";
+import CustomCursor from "@/components/CustomCursor";
+import CommandPalette from "@/components/CommandPalette";
 import "./globals.css";
 
 const inter = Inter({
@@ -47,7 +49,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <CommandPalette />
+        <CustomCursor />
+      </body>
     </html>
   );
 }

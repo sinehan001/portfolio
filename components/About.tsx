@@ -15,7 +15,7 @@ export default function About() {
         <Reveal delay={0.1}>
           <dl className="grid grid-cols-2 gap-4">
             {about.facts.map((f) => (
-              <GlowCard key={f.label} className="p-5">
+              <GlowCard key={f.label} tilt className="p-5">
                 <dt className="text-xs uppercase tracking-wider text-muted">{f.label}</dt>
                 <dd className="mt-2 font-semibold">{f.value}</dd>
               </GlowCard>

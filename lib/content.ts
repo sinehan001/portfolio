@@ -128,12 +128,17 @@ export type ArchDiagramData = {
   columns: string[][];
 };
 
+/** Which interactive (simulated) demo to show on a project card. */
+export type DemoKind = "rag" | "dashboard" | "queue" | "migration";
+
 export type Project = {
   title: string;
   problem: string;
   built: string;
   tech: string[];
   outcome: string;
+  demo?: DemoKind;
+  demoLabel?: string;
   architecture?: ArchDiagramData;
 };
 
@@ -147,6 +152,8 @@ export const projects: Project[] = [
     tech: ["Node.js", "LangChain", "Weaviate", "PostgreSQL", "RBAC"],
     outcome:
       "Users ask questions in plain language and get role-appropriate answers from live data, with no write access possible by design.",
+    demo: "rag",
+    demoLabel: "Pick a role and a question, then run it through the pipeline.",
     architecture: {
       label: "Architecture: role-based natural-language query flow",
       columns: [
@@ -167,6 +174,8 @@ export const projects: Project[] = [
     tech: ["PostgreSQL", "Node.js", "React.js", "REST APIs"],
     outcome:
       "Engineers can spot failing endpoints and traffic changes quickly instead of digging through logs.",
+    demo: "dashboard",
+    demoLabel: "Watch simulated traffic stream in, then trigger an incident.",
     architecture: {
       label: "Architecture: API call tracking to dashboard",
       columns: [
@@ -187,6 +196,18 @@ export const projects: Project[] = [
     tech: ["Node.js", "RabbitMQ", "Microservices", "PostgreSQL"],
     outcome:
       "High-volume processing runs in the background with better query performance, keeping the main services responsive.",
+    demo: "queue",
+    demoLabel: "Publish a batch of jobs and scale consumers to drain the queue.",
+    architecture: {
+      label: "Architecture: queued bulk processing",
+      columns: [
+        ["Bulk request"],
+        ["Producer API"],
+        ["RabbitMQ queue"],
+        ["Worker", "Worker"],
+        ["PostgreSQL"],
+      ],
+    },
   },
   {
     title: "Zero-Downtime Node.js Runtime Migration",
@@ -197,6 +218,18 @@ export const projects: Project[] = [
     tech: ["Node.js", "PM2", "Nginx", "Linux", "AWS"],
     outcome:
       "All services moved to a current runtime with zero downtime.",
+    demo: "migration",
+    demoLabel: "Compare a rolling rollout with an all-at-once deploy.",
+    architecture: {
+      label: "Architecture: rolling runtime upgrade",
+      columns: [
+        ["Traffic"],
+        ["Nginx load balancer"],
+        ["Drain one instance"],
+        ["Upgrade + health check"],
+        ["Back in rotation"],
+      ],
+    },
   },
 ];
 

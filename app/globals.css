@@ -187,3 +187,157 @@ body {
     animation: none;
   }
 }
+
+/* ---------- v2: interaction layer ---------- */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Hero name letters */
+.hero-letter {
+  display: inline-block;
+  animation: letter-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1), text-shadow 0.35s;
+  will-change: transform;
+}
+.hero-letter:hover {
+  transform: translateY(-0.12em) rotate(-6deg) scale(1.08);
+  text-shadow: 0 0 40px var(--glow);
+}
+@keyframes letter-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.6em) rotate(10deg);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+/* Cursor follower (desktop pointers only) */
+.cursor-ring,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 9999px;
+  background: var(--accent);
+}
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border-radius: 9999px;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 70%, transparent);
+  display: grid;
+  place-items: center;
+}
+.cursor-ring > span {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--on-accent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.cursor-ring[data-label] {
+  background: var(--accent);
+  border-color: transparent;
+}
+.cursor-ring[data-label] > span {
+  opacity: 1;
+}
+.cursor-visible {
+  opacity: 1;
+}
+@media (pointer: coarse) {
+  .cursor-ring,
+  .cursor-dot {
+    display: none;
+  }
+}
+
+/* Second marquee row runs the other way */
+.marquee-reverse .marquee-track {
+  animation-direction: reverse;
+}
+
+/* Packets flowing along architecture arrows */
+.packet-lane {
+  position: relative;
+}
+.packet {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 9999px;
+  background: var(--accent2);
+  box-shadow: 0 0 10px var(--accent2);
+  animation: packet 1.6s linear infinite;
+}
+@keyframes packet {
+  from { left: 0; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  to { left: calc(100% - 6px); opacity: 0; }
+}
+
+/* Message dots flying into the queue */
+.fly {
+  animation: fly 0.7s cubic-bezier(0.3, 0.7, 0.4, 1) both;
+}
+@keyframes fly {
+  from { transform: translateX(-60px) scale(0.4); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, var(--glow), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@keyframes scroll-dot {
+  0% { transform: translateY(0); opacity: 1; }
+  80% { transform: translateY(12px); opacity: 0; }
+  100% { opacity: 0; }
+}
+.scroll-dot {
+  animation: scroll-dot 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-letter,
+  .packet,
+  .fly,
+  .shimmer,
+  .scroll-dot {
+    animation: none;
+  }
+  .packet {
+    display: none;
+  }
+}
