@@ -5,7 +5,6 @@ export default function Marquee() {
   return (
     <div
       className="marquee overflow-hidden border-y border-line py-5"
-      aria-label="Technologies I work with"
       style={{
         WebkitMaskImage:
           "linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent)",
