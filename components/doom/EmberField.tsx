@@ -36,8 +36,8 @@ export default function EmberField() {
     let raf = 0;
     let visible = true;
     const mouse = { x: -9999, y: -9999 };
-    let green = readVar("--accent", "#3ddc84");
-    let gold = readVar("--accent2", "#d4af37");
+    let green = readVar("--particle-a", "#3ddc84");
+    let gold = readVar("--particle-b", "#d4af37");
     let dark = document.documentElement.classList.contains("dark");
 
     const spawn = (x?: number, y?: number, burst = false): Ember => {
@@ -144,8 +144,8 @@ export default function EmberField() {
       if (visible) start();
     });
     const mo = new MutationObserver(() => {
-      green = readVar("--accent", "#3ddc84");
-      gold = readVar("--accent2", "#d4af37");
+      green = readVar("--particle-a", "#3ddc84");
+      gold = readVar("--particle-b", "#d4af37");
       dark = document.documentElement.classList.contains("dark");
       if (reduce) frame(0);
     });

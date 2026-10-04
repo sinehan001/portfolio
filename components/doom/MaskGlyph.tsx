@@ -14,8 +14,8 @@ export default function MaskGlyph({ className = "h-6 w-6" }: { className?: strin
         d="M16 5c5.3 0 8.4 3.3 8.6 8.5l-.4 6.9c-.4 4.6-3.4 7.9-8.2 8.8-4.8-.9-7.8-4.2-8.2-8.8l-.4-6.9C7.6 8.3 10.7 5 16 5z"
         fill="url(#glyph-metal)"
       />
-      <path d="M9.6 14.6l5 .5-.4 1.9-4.3-.5z" fill="var(--accent)" />
-      <path d="M22.4 14.6l-5 .5.4 1.9 4.3-.5z" fill="var(--accent)" />
+      <path d="M9.6 14.6l5 .5-.4 1.9-4.3-.5z" fill="var(--eye)" />
+      <path d="M22.4 14.6l-5 .5.4 1.9 4.3-.5z" fill="var(--eye)" />
       <path d="M16 15v6" stroke="#30373c" strokeWidth="0.8" />
       <rect x="13" y="23" width="6" height="1.6" rx="0.8" fill="#030504" />
     </svg>

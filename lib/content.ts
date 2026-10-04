@@ -281,9 +281,13 @@ export const hero = {
 /** v3 · Doomsday Edition copy. Section "lore" names sit above the plain-language titles. */
 export const doom = {
   edition: "Doomsday Edition",
-  /** Hero mask: "original" (hand-drawn SVG) or "combo" (the supplied line-art SVG). */
-  mask: "combo" as "original" | "combo",
+  /**
+   * Hero mask: "dual" (full Iron Man in light / full Doom in dark, mirrored from the line art),
+   * "combo" (the half-and-half line art) or "original" (hand-drawn SVG).
+   */
+  mask: "dual" as "dual" | "original" | "combo",
   rotating: ["reliable backends", "GenAI systems", "automation pipelines"],
+  verb: "I forge",
   taglineEnd: "that bend real data to their will.",
   sigil: "FORGED IN CODE ✦ BOUND BY DATA ✦ RULED BY LOGIC ✦ ",
   lore: {
@@ -304,4 +308,30 @@ export const doom = {
     holding: "Summoning…",
     done: "Summoned",
   },
+};
+
+/** v4 · Iron (light) theme copy. Mirrors `doom` so each theme has its own flavour text. */
+export const stark = {
+  edition: "Iron Edition",
+  verb: "I build",
+  taglineEnd: "that run on real data.",
+  lore: {
+    about: "Origin File",
+    skills: "Armory",
+    experience: "Mission Log",
+    projects: "Prototypes",
+    education: "Clearances",
+    contact: "Comms Link",
+  },
+  console: {
+    eyebrow: "Workshop Console",
+    title: "Talk to the suit",
+    text: "A working terminal wired to this site. Ask it about my skills, projects or experience. Or try the commands nobody tells you about.",
+  },
+  summon: {
+    hold: "Hold to call",
+    holding: "Charging…",
+    done: "Connected",
+  },
+  hint: "Click the mask. Click anywhere. Or press",
 };

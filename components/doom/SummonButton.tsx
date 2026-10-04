@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, type KeyboardEvent } from "react";
-import { doom, site } from "@/lib/content";
+import { doom, site, stark } from "@/lib/content";
 import { strike } from "@/lib/doom";
 import MaskGlyph from "./MaskGlyph";
 
@@ -67,8 +67,7 @@ export default function SummonButton() {
     if (e.key === "Enter" || e.key === " ") cancel();
   };
 
-  const label =
-    phase === "done" ? doom.summon.done : phase === "holding" ? doom.summon.holding : doom.summon.hold;
+  const key = phase === "done" ? "done" : phase === "holding" ? "holding" : "hold";
 
   return (
     <div className="flex flex-col items-center gap-3">
@@ -112,7 +111,10 @@ export default function SummonButton() {
         </svg>
         <span className="relative flex flex-col items-center gap-1.5">
           <MaskGlyph className={`h-10 w-10 transition-transform ${phase === "holding" ? "scale-110" : "group-hover:scale-105"}`} />
-          <span className="font-display text-[11px] font-semibold uppercase tracking-[0.18em]">{label}</span>
+          <span className="font-display text-[11px] font-semibold uppercase tracking-[0.18em]">
+            <span className="doom-only">{doom.summon[key]}</span>
+            <span className="stark-only">{stark.summon[key]}</span>
+          </span>
         </span>
       </button>
       <span className="text-xs text-muted" aria-live="polite">

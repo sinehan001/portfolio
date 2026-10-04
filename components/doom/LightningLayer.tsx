@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { BOLT_EVENT, readAccent, type BoltDetail } from "@/lib/doom";
+import { BOLT_EVENT, readVar, type BoltDetail } from "@/lib/doom";
 
 type Pt = [number, number];
-type Bolt = { main: Pt[]; branches: Pt[][]; t: number };
+/** Doom theme draws forked lightning; Iron theme draws a straight repulsor beam with an impact ring. */
+type Bolt = { main: Pt[]; branches: Pt[][]; t: number; beam: boolean; end: Pt; color: [number, number, number] };
 
 const LIFE = 450;
 
@@ -30,7 +31,12 @@ function displace(a: Pt, b: Pt, iterations: number, spread: number): Pt[] {
   return pts;
 }
 
-function makeBolt(from: Pt, to: Pt): Bolt {
+function makeBeam(from: Pt, to: Pt, color: [number, number, number]): Bolt {
+  const dist = Math.hypot(to[0] - from[0], to[1] - from[1]);
+  return { main: displace(from, to, 3, dist / 70), branches: [], t: performance.now(), beam: true, end: to, color };
+}
+
+function makeBolt(from: Pt, to: Pt, color: [number, number, number]): Bolt {
   const dist = Math.hypot(to[0] - from[0], to[1] - from[1]);
   const main = displace(from, to, 7, dist / 5);
   const branches: Pt[][] = [];
@@ -43,7 +49,7 @@ function makeBolt(from: Pt, to: Pt): Bolt {
       displace(start, [start[0] + Math.cos(angle) * len, start[1] + Math.sin(angle) * len], 5, len / 4),
     );
   }
-  return { main, branches, t: performance.now() };
+  return { main, branches, t: performance.now(), beam: false, end: to, color };
 }
 
 /** Full-viewport overlay that renders lightning whenever something calls strike(). */
@@ -58,7 +64,6 @@ export default function LightningLayer() {
 
     let bolts: Bolt[] = [];
     let raf = 0;
-    let color = readAccent();
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -78,9 +83,37 @@ export default function LightningLayer() {
     const draw = (now: number) => {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       bolts = bolts.filter((b) => now - b.t < LIFE);
-      const [r, g, b] = color;
       for (const bolt of bolts) {
+        const [r, g, b] = bolt.color;
         const age = Math.max(0, now - bolt.t) / LIFE;
+        if (bolt.beam) {
+          const a = 1 - age;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+          ctx.shadowColor = `rgb(${r},${g},${b})`;
+          ctx.shadowBlur = 28;
+          ctx.strokeStyle = `rgba(${r},${g},${b},${0.3 * a})`;
+          ctx.lineWidth = 16 * (1 - age * 0.5);
+          path(bolt.main);
+          ctx.shadowBlur = 0;
+          ctx.strokeStyle = `rgba(${r},${g},${b},${0.75 * a})`;
+          ctx.lineWidth = 6 * (1 - age * 0.5);
+          path(bolt.main);
+          ctx.strokeStyle = `rgba(255,255,255,${a})`;
+          ctx.lineWidth = 2.5;
+          path(bolt.main);
+          // Impact ring + flare where the beam lands
+          ctx.strokeStyle = `rgba(${r},${g},${b},${0.8 * a})`;
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.arc(bolt.end[0], bolt.end[1], 6 + age * 46, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.fillStyle = `rgba(255,255,255,${0.9 * a})`;
+          ctx.beginPath();
+          ctx.arc(bolt.end[0], bolt.end[1], 7 * a, 0, Math.PI * 2);
+          ctx.fill();
+          continue;
+        }
         const flicker = Math.random() > 0.25 ? 1 : 0.35;
         const a = (1 - age) * flicker;
         if (age < 0.3) {
@@ -108,9 +141,20 @@ export default function LightningLayer() {
 
     const onBolt = (e: Event) => {
       const d = (e as CustomEvent<BoltDetail>).detail;
-      color = readAccent();
-      const from: Pt = [d.fromX ?? d.x + (Math.random() - 0.5) * 240, d.fromY ?? -20];
-      bolts.push(makeBolt(from, [d.x, d.y]));
+      const color = readVar("--bolt", "#3ddc84");
+      const dark = document.documentElement.classList.contains("dark");
+      if (dark) {
+        const from: Pt = [d.fromX ?? d.x + (Math.random() - 0.5) * 240, d.fromY ?? -20];
+        bolts.push(makeBolt(from, [d.x, d.y], color));
+      } else {
+        // Repulsor beams fire from the mask when no origin is given.
+        let from: Pt = [window.innerWidth / 2, window.innerHeight + 20];
+        const mask = document.querySelector("[data-mask]")?.getBoundingClientRect();
+        if (d.fromX !== undefined && d.fromY !== undefined) from = [d.fromX, d.fromY];
+        else if (mask && mask.bottom > 0 && mask.top < window.innerHeight)
+          from = [mask.left + mask.width / 2, mask.top + mask.height * 0.47];
+        bolts.push(makeBeam(from, [d.x, d.y], color));
+      }
       // Paint the first frame right away so the strike feels instant.
       if (!raf) draw(performance.now());
     };

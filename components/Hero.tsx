@@ -1,4 +1,4 @@
-import { doom, hero, site } from "@/lib/content";
+import { doom, hero, site, stark } from "@/lib/content";
 import { DownloadIcon, GithubIcon, LinkedinIcon, MailIcon } from "./Icons";
 import RotatingWord from "./RotatingWord";
 import AnimatedName from "./AnimatedName";
@@ -7,6 +7,8 @@ import GlowCard from "./GlowCard";
 import EmberField from "./doom/EmberField";
 import IronMask from "./doom/IronMask";
 import ComboMask from "./doom/ComboMask";
+import DualMask from "./doom/DualMask";
+import HudRings from "./doom/HudRings";
 import Sigil from "./doom/Sigil";
 
 const btn =
@@ -22,7 +24,8 @@ export default function Hero() {
         <div className="relative z-10">
           <div className="flex flex-wrap items-center gap-3">
             <span className="font-display inline-flex items-center gap-2 rounded-full border border-accent2/40 bg-surface/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-accent2 backdrop-blur">
-              ✦ {doom.edition} ✦
+              <span className="doom-only">✦ {doom.edition} ✦</span>
+              <span className="stark-only">◆ {stark.edition} ◆</span>
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-3 py-1 text-xs text-muted backdrop-blur">
               <span className="pulse-dot relative h-2 w-2 rounded-full bg-accent" />
@@ -46,9 +49,11 @@ export default function Hero() {
           </p>
 
           <p className="mt-5 max-w-xl text-2xl font-semibold leading-snug tracking-tight md:text-3xl">
-            I forge <RotatingWord words={doom.rotating} />
+            <span className="doom-only">{doom.verb}</span>
+            <span className="stark-only">{stark.verb}</span> <RotatingWord words={doom.rotating} />
             <br />
-            {doom.taglineEnd}
+            <span className="doom-only">{doom.taglineEnd}</span>
+            <span className="stark-only">{stark.taglineEnd}</span>
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">
@@ -75,20 +80,22 @@ export default function Hero() {
           </div>
 
           <p className="mt-8 hidden text-xs text-muted sm:block">
-            Click the mask. Click the darkness. Or press{" "}
+            <span className="doom-only">Click the mask. Click the darkness. Or press</span>
+            <span className="stark-only">{stark.hint}</span>{" "}
             <kbd className="rounded border border-line px-1.5 py-0.5 font-mono">Ctrl</kbd>{" "}
             <kbd className="rounded border border-line px-1.5 py-0.5 font-mono">K</kbd>
           </p>
         </div>
 
         <div className="relative flex min-h-[360px] min-w-0 items-center justify-center sm:min-h-[460px]">
-          <Sigil className="pointer-events-none absolute left-1/2 top-1/2 w-[min(135%,600px)] max-w-none -translate-x-1/2 -translate-y-1/2" />
+          <Sigil className="doom-only pointer-events-none absolute left-1/2 top-1/2 w-[min(135%,600px)] max-w-none -translate-x-1/2 -translate-y-1/2" />
+          <HudRings className="stark-only pointer-events-none absolute left-1/2 top-1/2 w-[min(135%,600px)] max-w-none -translate-x-1/2 -translate-y-1/2" />
           <div
             aria-hidden="true"
             className="hover-breathe pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{ background: "radial-gradient(circle, var(--glow), transparent 70%)" }}
           />
-          {doom.mask === "combo" ? <ComboMask /> : <IronMask />}
+          {doom.mask === "dual" ? <DualMask /> : doom.mask === "combo" ? <ComboMask /> : <IronMask />}
         </div>
       </div>
 

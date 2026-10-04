@@ -15,7 +15,8 @@ export default function Footer() {
             to navigate
           </span>
           <span className="font-display whitespace-nowrap rounded-full border border-accent2/50 px-2.5 py-0.5 text-[11px] uppercase tracking-[0.2em] text-accent2">
-            Doomsday · v3
+            <span className="doom-only">Doomsday · v4</span>
+            <span className="stark-only">Iron · v4</span>
           </span>
         </p>
       </div>

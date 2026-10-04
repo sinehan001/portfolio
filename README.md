@@ -48,7 +48,8 @@ vercel --prod   # production
 | --- | --- | --- |
 | **v1** | tag `v1.0.0`, branch `v1` | Clean static portfolio, Lighthouse 100 across the board |
 | **v2** | tag `v2.0.0`, branch `v2` | Interactive edition: neural-network hero canvas, typeable terminal, Ctrl+K command palette, cursor follower, magnetic buttons, circular theme transition, and a playable simulation in every project |
-| **v3 · Doomsday** | branch `doomsday` | Iron & emerald theme (Parchment light mode), Cinzel display type, original SVG iron mask with cursor-tracking eyes, rotating gold sigil, rising embers, lightning on click, Iron Console, hold-to-summon contact |
+| **v3 · Doomsday** | tag `v3.0.0`, branch `doomsday` | Iron & emerald theme (Parchment light mode), Cinzel display type, original SVG iron mask with cursor-tracking eyes, rotating gold sigil, rising embers, lightning on click, Iron Console, hold-to-summon contact |
+| **v4 · Iron / Doom** | branch `v4` | Light mode is Iron (full Iron Man mask, HUD rings, blue arc particles, repulsor beams, Rajdhani type); dark mode is Doom (full Doom mask, sigil, embers, lightning, Cinzel). Iron is the default; the split-mask toggle flips between them |
 
 Vercel builds a preview URL for every branch, so `v1` stays viewable after `v2` is merged into `main`.
 
@@ -71,3 +72,11 @@ All motion respects `prefers-reduced-motion`.
 - Lore copy lives in `doom` inside `lib/content.ts`
 
 Hero mask: set `doom.mask` in `lib/content.ts` to `"combo"` (the supplied line-art SVG in `lib/maskCombo.ts`, rendered by `components/doom/ComboMask.tsx`) or `"original"` (the hand-drawn `IronMask.tsx`). The combo art is third-party; make sure its licence allows display on a public website.
+
+### v4 dual theme
+
+- Light = **Iron**, dark = **Doom**; Iron is the default and the choice is remembered (`localStorage.theme`)
+- `components/doom/DualMask.tsx`: mirrors each half of the line art into a full face; faces flip on theme change
+- `components/doom/HudRings.tsx`: Iron backdrop; `Sigil.tsx` is the Doom backdrop
+- Themed copy lives in `stark` and `doom` in `lib/content.ts`; markup shows one or the other with `.stark-only` / `.doom-only`
+- Theme colours, particle/beam colours and the display font are CSS variables at the top of `app/globals.css`

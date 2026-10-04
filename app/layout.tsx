@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cinzel, Inter } from "next/font/google";
+import { Cinzel, Inter, Rajdhani } from "next/font/google";
 import { site } from "@/lib/content";
 import CustomCursor from "@/components/CustomCursor";
 import CommandPalette from "@/components/CommandPalette";
@@ -15,6 +15,13 @@ const inter = Inter({
 const cinzel = Cinzel({
   variable: "--font-cinzel",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const rajdhani = Rajdhani({
+  variable: "--font-rajdhani",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -43,16 +50,16 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#040705" },
-    { media: "(prefers-color-scheme: light)", color: "#efe7d4" },
+    { media: "(prefers-color-scheme: light)", color: "#f3f5f8" },
   ],
 };
 
-// Runs before paint: dark by default, honours a saved light choice.
-const themeScript = `try{if(localStorage.getItem("theme")!=="light")document.documentElement.classList.add("dark")}catch(e){document.documentElement.classList.add("dark")}`;
+// Runs before paint: Iron (light) by default; Doom (dark) only if the visitor chose it.
+const themeScript = `try{if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${cinzel.variable} dark`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${cinzel.variable} ${rajdhani.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

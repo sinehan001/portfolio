@@ -43,7 +43,7 @@ export default function CommandPalette() {
         group: "Actions",
         run: () => (window.location.href = `mailto:${site.email}`),
       },
-      { label: "Toggle theme", group: "Actions", run: () => toggleTheme() },
+      { label: "Switch Iron / Doom mode", group: "Actions", hint: "theme", run: () => toggleTheme() },
       {
         label: "Open GitHub",
         group: "Links",

@@ -142,7 +142,7 @@ const COMMANDS: Record<string, { desc: string; run: (args: string[]) => ReactNod
     },
   },
   theme: {
-    desc: "toggle light/dark",
+    desc: "switch Iron / Doom mode",
     run: () => {
       toggleTheme();
       return "✔ theme toggled";
@@ -179,7 +179,8 @@ const COMMANDS: Record<string, { desc: string; run: (args: string[]) => ReactNod
     desc: "about this edition",
     run: () => (
       <span>
-        <B>Doomsday Edition</B> · v3. Iron, emerald and a little sorcery.
+        <B>Iron / Doom Edition</B> · v4. Light mode wears the armor, dark mode wears the
+        mask. Type &apos;theme&apos; to switch.
       </span>
     ),
   },
@@ -305,10 +306,16 @@ export default function Terminal() {
           <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
           <span className="h-3 w-3 rounded-full bg-green-400/80" />
           <span className="pointer-events-none absolute inset-x-0 text-center font-mono text-xs text-muted">
-            citadel<span className="opacity-60">://console</span>
+            <span className="doom-only">
+              citadel<span className="opacity-60">://console</span>
+            </span>
+            <span className="stark-only">
+              workshop<span className="opacity-60">://hud</span>
+            </span>
           </span>
           <span className="ml-auto rounded bg-accent-soft px-2 py-0.5 font-mono text-[10px] text-accent">
-            obeys
+            <span className="doom-only">obeys</span>
+            <span className="stark-only">online</span>
           </span>
         </div>
         <div

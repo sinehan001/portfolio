@@ -1,4 +1,4 @@
-import { doom } from "@/lib/content";
+import { doom, stark } from "@/lib/content";
 import Terminal from "./Terminal";
 import Reveal from "./Reveal";
 import Ornament from "./doom/Ornament";
@@ -18,10 +18,12 @@ export default function ConsoleSection() {
         <Reveal>
           <Ornament className="mb-6" />
           <p className="font-display text-sm font-semibold uppercase tracking-[0.25em] text-accent">
-            {doom.console.eyebrow}
+            <span className="doom-only">{doom.console.eyebrow}</span>
+            <span className="stark-only">{stark.console.eyebrow}</span>
           </p>
           <h2 id="console-title" className="font-display mt-4 text-4xl font-bold tracking-tight md:text-5xl">
-            {doom.console.title}
+            <span className="doom-only">{doom.console.title}</span>
+            <span className="stark-only">{stark.console.title}</span>
           </h2>
           <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">{doom.console.text}</p>
           <dl className="mt-8 grid max-w-md grid-cols-[auto_1fr] gap-x-5 gap-y-2 text-sm">

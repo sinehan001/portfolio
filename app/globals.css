@@ -2,27 +2,32 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Light mode: "Parchment" (aged vellum, emerald ink, gilt) */
+/* Light mode: "Stark" (white & silver, Iron Man red, gold, arc-reactor blue) */
 :root {
-  --bg: #efe7d4;
-  --surface: #f7f1e1;
-  --surface-2: #e9dfc6;
-  --border: #d3c39f;
-  --fg: #1d1810;
-  --muted: #5a4f3c;
-  --accent: #17663a;
-  --accent2: #8a6414;
-  --accent-soft: rgba(23, 102, 58, 0.1);
-  --glow: rgba(23, 102, 58, 0.18);
-  --on-accent: #f7f1e1;
-  --aurora-a: rgba(23, 102, 58, 0.14);
-  --aurora-b: rgba(138, 100, 20, 0.14);
-  --hood-a: #1f6b3b;
-  --hood-b: #0b2e18;
-  --name-a: #1f2427;
-  --name-b: #4f5a61;
-  --rivet: rgba(90, 79, 60, 0.55);
-  --noise-opacity: 0.07;
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --surface-2: #eceff3;
+  --border: #d3d9e0;
+  --fg: #11151a;
+  --muted: #4a5561;
+  --accent: #c8102e;
+  --accent2: #946600;
+  --accent-soft: rgba(200, 16, 46, 0.08);
+  --glow: rgba(56, 189, 248, 0.28);
+  --on-accent: #ffffff;
+  --aurora-a: rgba(56, 189, 248, 0.2);
+  --aurora-b: rgba(200, 16, 46, 0.12);
+  --hood-a: #b3121d;
+  --hood-b: #5c060a;
+  --name-a: #e02a3a;
+  --name-b: #7d0c17;
+  --rivet: rgba(74, 85, 97, 0.4);
+  --noise-opacity: 0.035;
+  --display-face: var(--font-rajdhani), "Segoe UI", sans-serif;
+  --particle-a: #38bdf8;
+  --particle-b: #e0a526;
+  --bolt: #38bdf8;
+  --eye: #7dd3fc;
 }
 
 /* Dark mode: "Iron & Emerald" */
@@ -46,6 +51,11 @@
   --name-b: #8e9aa1;
   --rivet: rgba(170, 185, 175, 0.35);
   --noise-opacity: 0.05;
+  --display-face: var(--font-cinzel), "Times New Roman", serif;
+  --particle-a: #3ddc84;
+  --particle-b: #d4af37;
+  --bolt: #3ddc84;
+  --eye: #3ddc84;
 }
 
 @theme inline {
@@ -365,7 +375,7 @@ body {
    ========================================================= */
 
 .font-display {
-  font-family: var(--font-display);
+  font-family: var(--display-face);
 }
 
 /* Film grain over everything (decorative, never blocks input) */
@@ -577,6 +587,78 @@ html {
 /* Card and sub-headings in the display face */
 h3,
 h4 {
-  font-family: var(--font-display);
+  font-family: var(--display-face);
   letter-spacing: 0.01em;
+}
+
+/* =========================================================
+   v4 · Iron (light) / Doom (dark) dual theme
+   ========================================================= */
+
+/* Show content for one theme only */
+.dark .stark-only {
+  display: none !important;
+}
+:root:not(.dark) .doom-only {
+  display: none !important;
+}
+
+/* Stark headings: condensed tech face, slightly tracked */
+:root:not(.dark) .font-display {
+  letter-spacing: 0.04em;
+}
+:root:not(.dark) .glow-text {
+  filter: drop-shadow(0 6px 18px rgba(200, 16, 46, 0.25));
+}
+:root:not(.dark) .text-gilt {
+  background-image: linear-gradient(100deg, #8a5d00, #c9971c 45%, #8a5d00);
+}
+
+/* Hero mask faces: flip between Iron Man and Doom */
+.mask-face {
+  transition:
+    opacity 0.5s ease,
+    transform 0.8s cubic-bezier(0.3, 1.3, 0.5, 1);
+  backface-visibility: hidden;
+}
+.mask-stark {
+  opacity: 1;
+  transform: rotateY(0deg);
+}
+.mask-doom {
+  opacity: 0;
+  transform: rotateY(-90deg) scale(0.9);
+  pointer-events: none;
+}
+.dark .mask-stark {
+  opacity: 0;
+  transform: rotateY(90deg) scale(0.9);
+  pointer-events: none;
+}
+.dark .mask-doom {
+  opacity: 1;
+  transform: rotateY(0deg);
+}
+
+/* HUD rings (Stark) */
+.hud-sweep {
+  animation: spin 6s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.hud-blink {
+  animation: hud-blink 2.4s steps(2) infinite;
+}
+@keyframes hud-blink {
+  50% { opacity: 0.25; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mask-face {
+    transition: opacity 0.2s;
+  }
+  .hud-sweep,
+  .hud-blink {
+    animation: none;
+  }
 }

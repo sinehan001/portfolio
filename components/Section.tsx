@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { doom } from "@/lib/content";
+import { doom, stark } from "@/lib/content";
 import ScrambleText from "./ScrambleText";
 import WordsReveal from "./WordsReveal";
 import Ornament from "./doom/Ornament";
@@ -27,6 +27,7 @@ export default function Section({
   children: ReactNode;
 }) {
   const lore = (doom.lore as Record<string, string>)[id] ?? eyebrow;
+  const ironLore = (stark.lore as Record<string, string>)[id] ?? eyebrow;
   const roman = ROMAN[id] ?? num;
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="relative py-24 md:py-32">
@@ -35,7 +36,8 @@ export default function Section({
         <p className="font-display flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.25em] text-accent">
           <span className="text-gilt">{roman}</span>
           <span aria-hidden="true" className="h-px w-10 bg-accent2/60" />
-          <ScrambleText text={lore} />
+          <ScrambleText text={lore} className="doom-only" />
+          <ScrambleText text={ironLore} className="stark-only" />
           {lore !== eyebrow && (
             <span className="font-sans text-[11px] font-normal normal-case tracking-normal text-muted">
               · {eyebrow}
