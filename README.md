@@ -78,5 +78,6 @@ Hero mask: set `doom.mask` in `lib/content.ts` to `"combo"` (the supplied line-a
 - Light = **Iron**, dark = **Doom**; Iron is the default and the choice is remembered (`localStorage.theme`)
 - `components/doom/DualMask.tsx`: mirrors each half of the line art into a full face; faces flip on theme change
 - `components/doom/HudRings.tsx`: Iron backdrop; `Sigil.tsx` is the Doom backdrop
+- `components/doom/PowerCore.tsx`: Skills centrepiece. Iron: hexagonal nano-tech arc reactor; Doom: brilliant-cut emerald. Six plates/facets = six skill groups (synced with the filter tabs); the core shows all and overcharges
 - Themed copy lives in `stark` and `doom` in `lib/content.ts`; markup shows one or the other with `.stark-only` / `.doom-only`
 - Theme colours, particle/beam colours and the display font are CSS variables at the top of `app/globals.css`

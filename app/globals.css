@@ -665,3 +665,42 @@ h4 {
     animation: none;
   }
 }
+
+/* Power core (Skills) */
+.core-breathe {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: core-breathe 3.2s ease-in-out infinite;
+}
+@keyframes core-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.92; }
+  50% { transform: scale(1.04); opacity: 1; }
+}
+.core-surge {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: core-surge 0.7s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+@keyframes core-surge {
+  0% { transform: scale(0.85); filter: brightness(2.2); }
+  100% { transform: scale(1); filter: none; }
+}
+.glint {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: glint 3.6s ease-in-out infinite;
+}
+@keyframes glint {
+  0%, 70%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+  80% { opacity: 1; transform: scale(1) rotate(45deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .core-breathe,
+  .core-surge,
+  .glint {
+    animation: none;
+  }
+  .glint {
+    opacity: 0.6;
+  }
+}

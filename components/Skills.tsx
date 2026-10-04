@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { skillGroups } from "@/lib/content";
 import Section from "./Section";
 import GlowCard from "./GlowCard";
+import PowerCore from "./doom/PowerCore";
 
 export default function Skills() {
   const [filter, setFilter] = useState<string>("All");
@@ -13,6 +14,15 @@ export default function Skills() {
 
   return (
     <Section num="02" id="skills" eyebrow="Skills" title="Tools I work with">
+      <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-10 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)]">
+      <div className="lg:sticky lg:top-24">
+        <PowerCore
+          groups={skillGroups.map((g) => ({ title: g.title, count: g.items.length }))}
+          selected={filter}
+          onSelect={setFilter}
+        />
+      </div>
+      <div className="min-w-0">
       <div
         role="group"
         aria-label="Filter skills by category"
@@ -40,7 +50,7 @@ export default function Skills() {
         ))}
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-5 md:grid-cols-2">
         {skillGroups.map((g, gi) => {
           const dim = filter !== "All" && filter !== g.title;
           const focus = filter === g.title;
@@ -85,6 +95,8 @@ export default function Skills() {
             </motion.div>
           );
         })}
+      </div>
+      </div>
       </div>
     </Section>
   );
