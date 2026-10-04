@@ -8,7 +8,9 @@ type Group = { title: string; count: number };
 
 const C = 200;
 const rad = (d: number) => (d * Math.PI) / 180;
-const pt = (r: number, deg: number): [number, number] => [C + r * Math.cos(rad(deg)), C + r * Math.sin(rad(deg))];
+/** Point on a circle, rounded so server and browser render identical numbers (avoids hydration mismatches). */
+const round2 = (n: number) => Math.round(n * 100) / 100;
+const pt = (r: number, deg: number): [number, number] => [round2(C + r * Math.cos(rad(deg))), round2(C + r * Math.sin(rad(deg)))];
 const poly = (pts: [number, number][]) => pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
 const hex = (r: number) => poly(Array.from({ length: 6 }, (_, k) => pt(r, -90 + k * 60)));
 /** Segment k spans hexagon vertex k → k+1; its centre angle is -60 + 60k. */
