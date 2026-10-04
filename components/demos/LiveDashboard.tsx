@@ -86,7 +86,7 @@ export default function LiveDashboard() {
         />
         <div className="rounded-xl border border-line bg-bg p-3">
           <div className="text-[10px] uppercase tracking-wider text-muted">Status</div>
-          <div className={`mt-1 flex items-center gap-1.5 font-semibold ${degraded ? "text-red-400" : "text-emerald-400"}`}>
+          <div className={`mt-1 flex items-center gap-1.5 font-semibold ${degraded ? "text-red-700 dark:text-red-400" : "text-emerald-700 dark:text-emerald-400"}`}>
             <span className={`pulse-dot relative h-2 w-2 rounded-full ${degraded ? "bg-red-400" : "bg-emerald-400"}`} />
             {degraded ? "Degraded" : "Healthy"}
           </div>
@@ -146,7 +146,7 @@ export default function LiveDashboard() {
           type="button"
           onClick={trigger}
           disabled={incident}
-          className="rounded-full border border-red-400/60 bg-red-500/10 px-4 py-2 font-medium text-red-500 transition hover:bg-red-500/20 disabled:opacity-60 dark:text-red-300"
+          className="rounded-full border border-red-400/60 bg-red-500/10 px-4 py-2 font-medium text-red-700 transition hover:bg-red-500/20 disabled:opacity-60 dark:text-red-300"
         >
           {incident ? "Incident in progress…" : "⚡ Simulate incident"}
         </button>
@@ -168,7 +168,7 @@ function Stat({ label, value, tone }: { label: string; value: string; tone?: "go
       <div className="text-[10px] uppercase tracking-wider text-muted">{label}</div>
       <div
         className={`mt-1 font-mono text-lg font-semibold tabular-nums ${
-          tone === "bad" ? "text-red-400" : tone === "good" ? "text-emerald-400" : ""
+          tone === "bad" ? "text-red-700 dark:text-red-400" : tone === "good" ? "text-emerald-700 dark:text-emerald-400" : ""
         }`}
       >
         {value}

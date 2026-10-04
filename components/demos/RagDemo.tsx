@@ -221,7 +221,7 @@ export default function RagDemo() {
                 st === "ok"
                   ? "border-accent/60 text-accent"
                   : st === "fail"
-                    ? "border-red-400/70 bg-red-500/10 text-red-400"
+                    ? "border-red-400/70 bg-red-500/10 text-red-700 dark:text-red-400"
                     : st === "run"
                       ? "border-accent2 text-fg"
                       : "border-line text-muted"
@@ -238,13 +238,13 @@ export default function RagDemo() {
       </ol>
 
       <div className="grid gap-3">
-        <pre className="min-h-[7.5rem] overflow-x-auto rounded-xl border border-line bg-bg p-3 font-mono text-[11.5px] leading-5 text-accent">
+        <pre tabIndex={0} aria-label="Generated SQL" className="min-h-[7.5rem] overflow-x-auto rounded-xl border border-line bg-bg p-3 font-mono text-[11.5px] leading-5 text-accent">
           <code>{sql || <span className="text-muted">-- generated SQL appears here</span>}</code>
         </pre>
 
         <div aria-live="polite" className="space-y-1 font-mono text-[11px]">
           {log.map((l, i) => (
-            <div key={i} className={l.ok ? "text-muted" : "text-red-400"}>
+            <div key={i} className={l.ok ? "text-muted" : "text-red-700 dark:text-red-400"}>
               {l.ok ? "✔" : "✖"} {l.text}
             </div>
           ))}
@@ -259,8 +259,8 @@ export default function RagDemo() {
               exit={{ opacity: 0 }}
             >
               {"blocked" in result ? (
-                <div className="rounded-xl border border-red-400/50 bg-red-500/10 p-3 text-red-300 dark:text-red-300">
-                  <strong className="text-red-500 dark:text-red-400">Blocked by guardrail.</strong>{" "}
+                <div className="rounded-xl border border-red-400/50 bg-red-500/10 p-3 text-red-800 dark:text-red-300">
+                  <strong className="text-red-700 dark:text-red-400">Blocked by guardrail.</strong>{" "}
                   <span className="text-fg">{result.blocked}</span>
                 </div>
               ) : (

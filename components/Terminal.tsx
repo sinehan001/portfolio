@@ -194,7 +194,7 @@ const COMMANDS: Record<string, { desc: string; run: (args: string[]) => ReactNod
         }, 900);
         return (
           <span>
-            <span className="text-emerald-400">✔ permission granted.</span> opening your mail
+            <span className="text-emerald-700 dark:text-emerald-400">✔ permission granted.</span> opening your mail
             client…
           </span>
         );
@@ -321,6 +321,7 @@ export default function Terminal() {
         <div
           ref={bodyRef}
           role="log"
+          tabIndex={0}
           aria-live="polite"
           aria-label="Terminal output"
           className="h-64 overflow-y-auto p-4 font-mono text-[12.5px] leading-6 sm:h-72"

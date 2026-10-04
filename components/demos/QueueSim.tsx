@@ -84,7 +84,7 @@ export default function QueueSim() {
 
         <div className="rounded-xl border border-line bg-bg px-4 py-3 text-center">
           <div className="text-[10px] uppercase tracking-wider text-muted">Processed</div>
-          <div className="font-mono text-xl font-semibold tabular-nums text-emerald-400">
+          <div className="font-mono text-xl font-semibold tabular-nums text-emerald-700 dark:text-emerald-400">
             {s.processed}
           </div>
         </div>

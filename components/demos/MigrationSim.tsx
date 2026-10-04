@@ -163,11 +163,11 @@ export default function MigrationSim() {
         </div>
         <div className="rounded-xl border border-line bg-bg p-2">
           <div className="text-[10px] uppercase tracking-wider text-muted">Served</div>
-          <div className="font-mono text-lg font-semibold tabular-nums text-emerald-400">{served}</div>
+          <div className="font-mono text-lg font-semibold tabular-nums text-emerald-700 dark:text-emerald-400">{served}</div>
         </div>
         <div className="rounded-xl border border-line bg-bg p-2">
           <div className="text-[10px] uppercase tracking-wider text-muted">Failed</div>
-          <div className={`font-mono text-lg font-semibold tabular-nums ${failed ? "text-red-400" : ""}`}>
+          <div className={`font-mono text-lg font-semibold tabular-nums ${failed ? "text-red-700 dark:text-red-400" : ""}`}>
             {failed}
           </div>
         </div>
@@ -175,12 +175,12 @@ export default function MigrationSim() {
 
       <p aria-live="polite" className="min-h-5 text-xs">
         {done && lastMode === "rolling" && (
-          <span className="text-emerald-500 dark:text-emerald-400">
+          <span className="text-emerald-700 dark:text-emerald-400">
             ✔ Rolling rollout: all instances on v24, zero failed requests.
           </span>
         )}
         {done && lastMode === "bigbang" && (
-          <span className="text-red-500 dark:text-red-400">
+          <span className="text-red-700 dark:text-red-400">
             ✖ All-at-once: every instance was down at the same time, so {failed} requests failed.
           </span>
         )}
@@ -199,7 +199,7 @@ export default function MigrationSim() {
           type="button"
           onClick={() => start("bigbang")}
           disabled={!!running}
-          className="rounded-full border border-red-400/60 bg-red-500/10 px-4 py-2 font-medium text-red-500 transition hover:bg-red-500/20 disabled:opacity-60 dark:text-red-300"
+          className="rounded-full border border-red-400/60 bg-red-500/10 px-4 py-2 font-medium text-red-700 transition hover:bg-red-500/20 disabled:opacity-60 dark:text-red-300"
         >
           💥 All at once
         </button>
