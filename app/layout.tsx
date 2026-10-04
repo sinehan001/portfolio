@@ -4,6 +4,7 @@ import { site } from "@/lib/content";
 import CustomCursor from "@/components/CustomCursor";
 import CommandPalette from "@/components/CommandPalette";
 import LightningLayer from "@/components/doom/LightningLayer";
+import FaviconSync from "@/components/FaviconSync";
 import "./globals.css";
 
 const inter = Inter({
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="antialiased">
         {children}
+        <FaviconSync />
         <LightningLayer />
         <CommandPalette />
         <CustomCursor />
