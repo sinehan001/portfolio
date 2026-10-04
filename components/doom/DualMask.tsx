@@ -4,9 +4,16 @@ import { useEffect, useRef, type RefObject } from "react";
 import { strike } from "@/lib/doom";
 import { COMBO_MASK_PATHS, COMBO_REGIONS, COMBO_SILHOUETTE } from "@/lib/maskCombo";
 
-/** x of the vertical seam between the two halves of the line art (viewBox units). */
-const SEAM = 797.5;
-const MIRROR = `translate(${SEAM * 2},0) scale(-1,1)`;
+/**
+ * Mirror axes (viewBox units). The source art has a vertical ink seam between
+ * the halves (x ≈ 779–807). Each face is cut just outside that ink and mirrored
+ * there, so the coloured panels meet directly with no centre line.
+ */
+const AXIS = { iron: 776, doom: 810 } as const;
+const CENTRE = 794;
+/** Each half overlaps its mirror slightly so no anti-aliasing hairline shows at the axis. */
+const OVERLAP = 1.5;
+const mirror = (axis: number) => `translate(${axis * 2},0) scale(-1,1)`;
 const FLIP = "translate(0,1540) scale(0.1,-0.1)";
 
 // Which gradient fills each cell of the line art (index = COMBO_REGIONS index).
@@ -33,7 +40,7 @@ function Half({
 }) {
   const iron = side === "iron";
   return (
-    <g transform={mirrored ? MIRROR : undefined}>
+    <g transform={mirrored ? mirror(AXIS[side]) : undefined}>
       <g clipPath={iron ? "url(#dm-left)" : "url(#dm-right)"}>
         <g transform={FLIP}>
           {COMBO_REGIONS.map((r, i) => (
@@ -182,10 +189,10 @@ export default function DualMask() {
             <stop offset="1" stopColor="#000" stopOpacity="0.4" />
           </radialGradient>
           <clipPath id="dm-left">
-            <rect x="0" y="0" width={SEAM} height="1540" />
+            <rect x="0" y="0" width={AXIS.iron + OVERLAP} height="1540" />
           </clipPath>
           <clipPath id="dm-right">
-            <rect x={SEAM} y="0" width={1588 - SEAM} height="1540" />
+            <rect x={AXIS.doom - OVERLAP} y="0" width={1588 - AXIS.doom + OVERLAP} height="1540" />
           </clipPath>
           <clipPath id="dm-sil">
             <path transform={FLIP} d={COMBO_SILHOUETTE} />
@@ -208,14 +215,18 @@ export default function DualMask() {
       <div className="relative" style={{ perspective: "1000px" }}>
         <div className="mask-face mask-stark">
           <svg viewBox="0 0 1588 1540" className="h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)]" aria-hidden="true">
-            <Half side="iron" mirrored={false} eyeRef={ironA} />
-            <Half side="iron" mirrored eyeRef={ironB} />
+            <g transform={`translate(${CENTRE - AXIS.iron},0)`}>
+              <Half side="iron" mirrored={false} eyeRef={ironA} />
+              <Half side="iron" mirrored eyeRef={ironB} />
+            </g>
           </svg>
         </div>
         <div className="mask-face mask-doom absolute inset-0">
           <svg viewBox="0 0 1588 1540" className="h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)]" aria-hidden="true">
-            <Half side="doom" mirrored={false} eyeRef={doomA} />
-            <Half side="doom" mirrored eyeRef={doomB} />
+            <g transform={`translate(${CENTRE - AXIS.doom},0)`}>
+              <Half side="doom" mirrored={false} eyeRef={doomA} />
+              <Half side="doom" mirrored eyeRef={doomB} />
+            </g>
           </svg>
         </div>
       </div>
