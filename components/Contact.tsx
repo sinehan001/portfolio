@@ -12,7 +12,7 @@ export default function Contact() {
     <Section num="06" id="contact" eyebrow="Contact" title={contact.heading}>
       <Reveal>
         <div className="iron relative overflow-hidden rounded-3xl border border-line p-8 md:p-12">
-          <Sigil className="pointer-events-none absolute -right-40 -top-40 w-[520px] opacity-40" />
+          <Sigil className="doom-only pointer-events-none absolute -right-40 -top-40 w-[520px] opacity-40" />
           <div className="relative grid items-center gap-10 md:grid-cols-[minmax(0,1fr)_auto]">
             <div className="min-w-0">
               <p className="max-w-xl text-lg text-muted">{contact.text}</p>
