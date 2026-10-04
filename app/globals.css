@@ -482,7 +482,7 @@ body::before {
   100% { opacity: 0.95; filter: none; }
 }
 .mask-ignite {
-  animation: mask-ignite 1.6s ease-out both;
+  animation: mask-ignite 0.9s ease-out both;
 }
 @keyframes mask-ignite {
   from { opacity: 0; transform: translateY(20px) scale(0.96); filter: brightness(0.3); }
@@ -508,7 +508,7 @@ body::before {
 /* Name forging in */
 .forge-letter {
   display: inline-block;
-  animation: forge 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: forge 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1), filter 0.35s;
 }
 .forge-letter:hover {
@@ -735,8 +735,8 @@ h4 {
   place-items: center;
   background: var(--bg);
   transition:
-    opacity 0.6s ease,
-    visibility 0.6s ease;
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 }
 html:not(.is-loading) #preloader {
   opacity: 0;

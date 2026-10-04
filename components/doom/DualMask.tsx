@@ -143,7 +143,7 @@ export default function DualMask() {
       onClick={ignite}
       aria-label="Mask: click to fire from its eyes"
       className="mask-ignite relative z-10 w-[min(82vw,400px)] rounded-[45%] transition-transform duration-300 ease-out focus-visible:outline-offset-8"
-      style={{ animationDelay: "0.3s" }}
+      style={{ animationDelay: "0.1s" }}
     >
       {/* Shared paint for both faces */}
       <svg width="0" height="0" className="absolute" aria-hidden="true" focusable="false">

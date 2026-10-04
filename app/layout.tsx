@@ -18,6 +18,8 @@ const cinzel = Cinzel({
   variable: "--font-cinzel",
   subsets: ["latin"],
   display: "swap",
+  // Doom-only face; new visitors start in Iron, so it loads on demand.
+  preload: false,
 });
 
 const rajdhani = Rajdhani({
@@ -59,8 +61,9 @@ export const viewport: Viewport = {
 // Runs before paint: Iron (light) by default; Doom (dark) only if the visitor chose it.
 const themeScript = `document.documentElement.classList.add("is-loading");try{if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}`;
 
-// Lifts the first-load screen once fonts and assets are ready (min 900ms, max 4.5s).
-const loaderScript = `(function(){var d=document.documentElement,done=false;function hide(){if(done)return;done=true;d.classList.remove("is-loading")}var min=new Promise(function(r){setTimeout(r,900)});var load=new Promise(function(r){if(document.readyState==="complete")r();else window.addEventListener("load",r,{once:true})});var fonts=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();Promise.all([min,load,fonts]).then(hide,hide);setTimeout(hide,4500)})();`;
+// Lifts the first-load screen once the DOM and fonts are ready (min 300ms, max 1.5s).
+// It deliberately does not wait for every asset: a long loader hurts Speed Index.
+const loaderScript = `(function(){var d=document.documentElement,done=false;function hide(){if(done)return;done=true;d.classList.remove("is-loading")}var min=new Promise(function(r){setTimeout(r,300)});var load=new Promise(function(r){if(document.readyState!=="loading")r();else document.addEventListener("DOMContentLoaded",r,{once:true})});var fonts=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();Promise.all([min,load,fonts]).then(hide,hide);setTimeout(hide,1500)})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

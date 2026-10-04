@@ -8,7 +8,7 @@ export default function AnimatedName({ name }: { name: string }) {
           <span
             key={i}
             className="forge-letter text-steel"
-            style={{ animationDelay: `${0.15 + i * 0.09}s` }}
+            style={{ animationDelay: `${0.05 + i * 0.05}s` }}
           >
             {ch}
           </span>
