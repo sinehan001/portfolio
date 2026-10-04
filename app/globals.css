@@ -578,13 +578,15 @@ body::before {
   display: none;
 }
 
-/* Themed scrollbars */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
-}
-html {
-  scrollbar-color: color-mix(in srgb, var(--accent) 35%, var(--border)) var(--bg);
+/* Themed scrollbars (base layer so utilities like [scrollbar-width:none] win) */
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  html {
+    scrollbar-color: color-mix(in srgb, var(--accent) 35%, var(--border)) var(--bg);
+  }
 }
 
 /* Card and sub-headings in the display face */

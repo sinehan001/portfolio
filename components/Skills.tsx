@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { skillGroups } from "@/lib/content";
 import Section from "./Section";
@@ -9,6 +9,15 @@ import PowerCore from "./doom/PowerCore";
 
 export default function Skills() {
   const [filter, setFilter] = useState<string>("All");
+  const tabsRef = useRef<HTMLDivElement>(null);
+
+  // Keep the selected tab centred in the swipeable row on small screens.
+  useEffect(() => {
+    const row = tabsRef.current;
+    const btn = row?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]');
+    if (!row || !btn || row.scrollWidth <= row.clientWidth) return;
+    row.scrollTo({ left: btn.offsetLeft - (row.clientWidth - btn.offsetWidth) / 2, behavior: "smooth" });
+  }, [filter]);
   const reduce = useReducedMotion();
   const tabs = ["All", ...skillGroups.map((g) => g.title)];
 
@@ -24,9 +33,10 @@ export default function Skills() {
       </div>
       <div className="min-w-0">
       <div
+        ref={tabsRef}
         role="group"
         aria-label="Filter skills by category"
-        className="mb-8 flex flex-wrap gap-1 rounded-full border border-line bg-surface p-1 sm:inline-flex"
+        className="mb-8 flex max-w-full gap-1 overflow-x-auto rounded-full border border-line bg-surface p-1 [scrollbar-width:none] max-lg:[mask-image:linear-gradient(90deg,transparent,#000_14px,#000_calc(100%-14px),transparent)] lg:flex-wrap [&::-webkit-scrollbar]:hidden"
       >
         {tabs.map((t) => (
           <button
@@ -34,7 +44,7 @@ export default function Skills() {
             type="button"
             aria-pressed={filter === t}
             onClick={() => setFilter(t)}
-            className={`relative rounded-full px-3.5 py-1.5 text-sm transition ${
+            className={`relative shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm transition ${
               filter === t ? "text-on-accent" : "text-muted hover:text-fg"
             }`}
           >
@@ -61,7 +71,7 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: (gi % 3) * 0.08 }}
-              className="h-full"
+              className={`h-full ${dim ? "max-lg:hidden" : ""}`}
             >
               <div
                 className={`h-full transition duration-500 ${dim ? "scale-[0.97] opacity-25 blur-[1px]" : ""}`}
