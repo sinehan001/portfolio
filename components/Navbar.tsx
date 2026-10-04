@@ -7,7 +7,7 @@ import { OPEN_PALETTE_EVENT } from "@/lib/theme";
 import ThemeToggle from "./ThemeToggle";
 import ScrollProgress from "./ScrollProgress";
 import { CloseIcon, MenuIcon } from "./Icons";
-import MaskGlyph from "./doom/MaskGlyph";
+import Monogram from "./doom/Monogram";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -45,7 +45,7 @@ export default function Navbar() {
         className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5"
       >
         <a href="#top" className="group flex items-center gap-2.5">
-          <MaskGlyph className="h-7 w-7 transition-transform duration-500 group-hover:rotate-[360deg]" />
+          <Monogram className="h-8 w-8" />
           <span className="font-display text-base font-bold uppercase tracking-[0.22em]">{site.name}</span>
         </a>
 
