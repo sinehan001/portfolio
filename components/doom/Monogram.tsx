@@ -1,9 +1,16 @@
 /** Header emblem: gilt "S" inside a hexagon frame, set in the active theme's display face. */
-export default function Monogram({ className = "h-8 w-8" }: { className?: string }) {
+export default function Monogram({
+  className = "h-8 w-8",
+  gradientId = "mono-gilt",
+}: {
+  className?: string;
+  /** Unique per instance so several emblems on one page do not share an SVG id. */
+  gradientId?: string;
+}) {
   return (
     <svg viewBox="0 0 40 40" aria-hidden="true" className={className}>
       <defs>
-        <linearGradient id="mono-gilt" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#f6dd8a" />
           <stop offset="0.55" stopColor="#d4a73a" />
           <stop offset="1" stopColor="#8f6410" />
@@ -30,7 +37,7 @@ export default function Monogram({ className = "h-8 w-8" }: { className?: string
         textAnchor="middle"
         fontSize="20"
         fontWeight="700"
-        fill="url(#mono-gilt)"
+        fill={`url(#${gradientId})`}
         style={{ fontFamily: "var(--display-face)" }}
       >
         S

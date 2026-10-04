@@ -3,7 +3,7 @@
 import { useRef, useState, type KeyboardEvent } from "react";
 import { doom, site, stark } from "@/lib/content";
 import { strike } from "@/lib/doom";
-import MaskGlyph from "./MaskGlyph";
+import Monogram from "./Monogram";
 
 const R = 46;
 const C = 2 * Math.PI * R;
@@ -110,7 +110,10 @@ export default function SummonButton() {
           />
         </svg>
         <span className="relative flex flex-col items-center gap-1.5">
-          <MaskGlyph className={`h-10 w-10 transition-transform ${phase === "holding" ? "scale-110" : "group-hover:scale-105"}`} />
+          <Monogram
+            gradientId="mono-gilt-summon"
+            className={`h-11 w-11 transition-transform duration-300 ${phase === "holding" ? "scale-110" : "group-hover:scale-105"}`}
+          />
           <span className="font-display text-[11px] font-semibold uppercase tracking-[0.18em]">
             <span className="doom-only">{doom.summon[key]}</span>
             <span className="stark-only">{stark.summon[key]}</span>
