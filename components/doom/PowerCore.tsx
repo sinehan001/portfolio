@@ -13,6 +13,21 @@ const poly = (pts: [number, number][]) => pts.map(([x, y]) => `${x.toFixed(1)},$
 const hex = (r: number) => poly(Array.from({ length: 6 }, (_, k) => pt(r, -90 + k * 60)));
 /** Segment k spans hexagon vertex k → k+1; its centre angle is -60 + 60k. */
 const mid = (k: number) => -60 + k * 60;
+/** Circular arc from a0 to a1 (degrees, clockwise) at radius r. */
+const arcPath = (r: number, a0: number, a1: number) => {
+  const [x0, y0] = pt(r, a0);
+  const [x1, y1] = pt(r, a1);
+  return `M${x0.toFixed(1)} ${y0.toFixed(1)} A${r} ${r} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+};
+/** Annular sector (curved plate) between radii r1 < r2. */
+const sector = (r1: number, r2: number, a0: number, a1: number) => {
+  const [ox0, oy0] = pt(r2, a0);
+  const [ox1, oy1] = pt(r2, a1);
+  const [ix1, iy1] = pt(r1, a1);
+  const [ix0, iy0] = pt(r1, a0);
+  const f = (n: number) => n.toFixed(1);
+  return `M${f(ox0)} ${f(oy0)} A${r2} ${r2} 0 0 1 ${f(ox1)} ${f(oy1)} L${f(ix1)} ${f(iy1)} A${r1} ${r1} 0 0 0 ${f(ix0)} ${f(iy0)} Z`;
+};
 
 /**
  * Interactive centrepiece for the Skills section. Iron theme: a hexagonal
@@ -106,19 +121,23 @@ export default function PowerCore({
   return (
     <div className="flex flex-col items-center" data-cursor="Power">
       <div ref={coreRef} className="relative w-full max-w-[420px]">
-        {/* ================= Iron: nano-tech arc reactor ================= */}
+        {/* ================= Iron: classic round arc reactor with triangle core ================= */}
         <svg viewBox="0 0 400 400" className="stark-only h-auto w-full" aria-label="Arc reactor skill selector" role="group">
           <defs>
             <radialGradient id="pc-core" cx="0.5" cy="0.5" r="0.5">
               <stop offset="0" stopColor="#ffffff" />
-              <stop offset="0.35" stopColor="#dff7ff" />
-              <stop offset="0.7" stopColor="#5fd0ff" />
+              <stop offset="0.4" stopColor="#dff7ff" />
+              <stop offset="0.75" stopColor="#5fd0ff" />
               <stop offset="1" stopColor="#0b6fa8" />
             </radialGradient>
             <radialGradient id="pc-aura" cx="0.5" cy="0.5" r="0.5">
               <stop offset="0" stopColor="#38bdf8" stopOpacity="0.55" />
               <stop offset="1" stopColor="#38bdf8" stopOpacity="0" />
             </radialGradient>
+            <linearGradient id="pc-tri" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#ffffff" />
+              <stop offset="1" stopColor="#a8e9ff" />
+            </linearGradient>
             <linearGradient id="pc-red" x1="0" y1="0" x2="0.4" y2="1">
               <stop offset="0" stopColor="#ff4a3d" />
               <stop offset="0.5" stopColor="#b3121d" />
@@ -142,36 +161,35 @@ export default function PowerCore({
             </filter>
           </defs>
 
-          <circle cx={C} cy={C} r="196" fill="url(#pc-aura)" className="core-breathe" />
+          <circle cx={C} cy={C} r="198" fill="url(#pc-aura)" className="core-breathe" />
 
-          {/* Housing: red chest plate, gold trim, dark well */}
-          <polygon points={hex(188)} fill="url(#pc-red)" stroke="url(#pc-gold)" strokeWidth="4" strokeLinejoin="round" />
+          {/* Housing: red casing, gold rings, six bolts */}
+          <circle cx={C} cy={C} r="186" fill="url(#pc-red)" stroke="url(#pc-gold)" strokeWidth="4" />
+          <circle cx={C} cy={C} r="170" fill="#0b0f12" stroke="url(#pc-gold)" strokeWidth="2" strokeOpacity="0.8" />
           {Array.from({ length: 6 }, (_, k) => {
-            const [x1, y1] = pt(188, -90 + k * 60);
-            const [x2, y2] = pt(170, -90 + k * 60);
-            return <line key={k} x1={x1} y1={y1} x2={x2} y2={y2} stroke="url(#pc-gold)" strokeWidth="3" />;
+            const [x, y] = pt(178, -90 + k * 60);
+            return <circle key={k} cx={x} cy={y} r="4.2" fill="url(#pc-gold)" stroke="#5c3d06" strokeWidth="1" />;
           })}
-          <polygon points={hex(170)} fill="#0b0f12" stroke="#000" strokeOpacity="0.6" strokeWidth="2" strokeLinejoin="round" />
 
-          {/* Six armour plates = six skill groups */}
+          {/* Six curved armour plates = six skill groups */}
           {six.map((g, k) => {
-            const a0 = -90 + k * 60;
-            const a1 = a0 + 60;
+            const a0 = -90 + k * 60 + 3;
+            const a1 = -90 + (k + 1) * 60 - 3;
             const on = lit(k);
             return (
               <motion.g key={g.title} {...enter(k)} {...segProps(k, g)}>
-                <polygon
-                  points={poly([pt(162, a0 + 3.5), pt(162, a1 - 3.5), pt(106, a1 - 5), pt(106, a0 + 5)])}
+                <path
+                  d={sector(112, 162, a0, a1)}
                   fill={on ? "#0e3b55" : "url(#pc-metal)"}
                   stroke={on ? "#7dd3fc" : "#5b666e"}
                   strokeWidth={on ? 2 : 1}
                   style={{ transition: "fill .3s, stroke .3s" }}
                 />
-                <polyline
-                  points={poly([pt(112, a0 + 8), pt(112, a1 - 8)])}
+                <path
+                  d={arcPath(120, a0 + 5, a1 - 5)}
                   fill="none"
                   stroke="#7dd3fc"
-                  strokeWidth={on ? 4 : 2.5}
+                  strokeWidth={on ? 4.5 : 2.5}
                   strokeLinecap="round"
                   opacity={on ? 1 : 0.55}
                   filter={on ? "url(#pc-glow)" : undefined}
@@ -182,27 +200,46 @@ export default function PowerCore({
           })}
 
           {/* Coil ring */}
-          <circle cx={C} cy={C} r="99" fill="none" stroke="#38bdf8" strokeWidth="3" opacity="0.85" filter="url(#pc-glow)" />
+          <circle cx={C} cy={C} r="104" fill="none" stroke="#38bdf8" strokeWidth="3" opacity="0.85" filter="url(#pc-glow)" />
           <g className="spin-slow" style={{ animationDuration: "24s" }}>
             {Array.from({ length: 24 }, (_, i) => {
-              const [x1, y1] = pt(80, i * 15);
-              const [x2, y2] = pt(94, i * 15);
+              const [x1, y1] = pt(86, i * 15);
+              const [x2, y2] = pt(99, i * 15);
               return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#9fe3ff" strokeWidth="3.4" strokeLinecap="round" opacity="0.8" />;
             })}
           </g>
 
-          {/* Core */}
-          <motion.g {...coreEnter} role="button"
+          {/* Core: glowing disc with the inverted triangle */}
+          <motion.g
+            {...coreEnter}
+            role="button"
             tabIndex={0}
             aria-label="Arc reactor core: show all skills and overcharge"
             onClick={overcharge}
             onKeyDown={onCoreKey}
-            className="cursor-pointer outline-none">
-            <circle cx={C} cy={C} r="72" fill="transparent" />
+            className="cursor-pointer outline-none"
+          >
+            <circle cx={C} cy={C} r="82" fill="transparent" />
             <g key={surge} className={surge ? "core-surge" : undefined}>
-              <circle cx={C} cy={C} r="64" fill="url(#pc-core)" filter="url(#pc-glow)" className="core-breathe" />
-              <polygon points={hex(42)} fill="none" stroke="#ffffff" strokeOpacity="0.8" strokeWidth="2" strokeLinejoin="round" />
-              <circle cx={C} cy={C} r="22" fill="#ffffff" />
+              <circle cx={C} cy={C} r="78" fill="url(#pc-core)" opacity="0.55" className="core-breathe" />
+              <polygon
+                points={poly([pt(64, 90), pt(64, 210), pt(64, 330)])}
+                fill="url(#pc-tri)"
+                fillOpacity="0.35"
+                stroke="url(#pc-tri)"
+                strokeWidth="9"
+                strokeLinejoin="round"
+                filter="url(#pc-glow)"
+              />
+              <polygon
+                points={poly([pt(36, 90), pt(36, 210), pt(36, 330)])}
+                fill="none"
+                stroke="#ffffff"
+                strokeOpacity="0.85"
+                strokeWidth="2"
+                strokeLinejoin="round"
+              />
+              <circle cx={C} cy={C} r="12" fill="#ffffff" filter="url(#pc-glow)" />
             </g>
           </motion.g>
         </svg>

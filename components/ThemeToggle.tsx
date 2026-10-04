@@ -61,8 +61,8 @@ export default function ThemeToggle() {
           <g className="spin-slow" style={{ animationDuration: "14s" }}>
             <circle cx="20" cy="20" r="11.5" fill="none" stroke="#7dd3fc" strokeWidth="1.2" strokeDasharray="3.2 2.2" />
           </g>
-          <polygon points="20,12.2 26.8,24 13.2,24" fill="none" stroke="#e0f7ff" strokeWidth="1.6" strokeLinejoin="round" />
-          <circle cx="20" cy="20.1" r="4" fill="url(#coin-core)" />
+          <polygon points="20,27.8 13.2,16 26.8,16" fill="none" stroke="#e0f7ff" strokeWidth="1.6" strokeLinejoin="round" />
+          <circle cx="20" cy="19.9" r="4" fill="url(#coin-core)" />
         </svg>
 
         {/* Doom face: emerald gem in a gold bezel */}
