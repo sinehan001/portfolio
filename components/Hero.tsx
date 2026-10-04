@@ -16,18 +16,18 @@ const btn =
 
 export default function Hero() {
   return (
-    <section id="top" aria-labelledby="hero-title" className="aurora relative isolate overflow-hidden">
+    <section id="top" data-anim aria-labelledby="hero-title" className="aurora relative isolate overflow-hidden">
       <div aria-hidden="true" className="bg-grid absolute inset-0 -z-20 opacity-40" />
       <EmberField />
 
       <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-10 px-5 pb-8 pt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <div className="relative z-10">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="font-display inline-flex items-center gap-2 rounded-full border border-accent2/40 bg-surface/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-accent2 backdrop-blur">
+            <span className="font-display inline-flex items-center gap-2 rounded-full border border-accent2/40 bg-surface/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-accent2 ">
               <span className="doom-only">✦ {doom.edition} ✦</span>
               <span className="stark-only">◆ {stark.edition} ◆</span>
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-3 py-1 text-xs text-muted backdrop-blur">
+            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-3 py-1 text-xs text-muted ">
               <span className="pulse-dot relative h-2 w-2 rounded-full bg-accent" />
               {hero.status}
             </span>

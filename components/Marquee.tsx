@@ -29,7 +29,7 @@ function Row({ items, reverse }: { items: string[]; reverse?: boolean }) {
 export default function Marquee() {
   const second = skillGroups.flatMap((g) => g.items).filter((s) => !hero.marquee.includes(s));
   return (
-    <div className="space-y-4 border-y border-line py-6">
+    <div data-anim className="space-y-4 border-y border-line py-6">
       <Row items={hero.marquee} />
       <Row items={second} reverse />
     </div>

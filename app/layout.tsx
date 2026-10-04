@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Cinzel, Inter, Rajdhani } from "next/font/google";
 import { site } from "@/lib/content";
-import CustomCursor from "@/components/CustomCursor";
-import CommandPalette from "@/components/CommandPalette";
 import LightningLayer from "@/components/doom/LightningLayer";
 import FaviconSync from "@/components/FaviconSync";
 import Preloader from "@/components/Preloader";
+import LazyChrome from "@/components/LazyChrome";
+import AnimPauser from "@/components/AnimPauser";
 import "./globals.css";
 
 const inter = Inter({
@@ -77,8 +77,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <FaviconSync />
         <LightningLayer />
-        <CommandPalette />
-        <CustomCursor />
+        <LazyChrome />
+        <AnimPauser />
       </body>
     </html>
   );

@@ -30,7 +30,7 @@ export default function Section({
   const ironLore = (stark.lore as Record<string, string>)[id] ?? eyebrow;
   const roman = ROMAN[id] ?? num;
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="relative py-24 md:py-32">
+    <section id={id} data-anim aria-labelledby={`${id}-title`} className="relative py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-5">
         <Ornament className="mb-6" />
         <p className="font-display flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.25em] text-accent">

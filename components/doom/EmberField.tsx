@@ -30,6 +30,9 @@ export default function EmberField() {
     if (!canvas || !ctx) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Phones: fewer embers, 1x pixel density and ~30fps keep the main thread free.
+    const lite = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
+    let last = 0;
     let w = 0;
     let h = 0;
     let embers: Ember[] = [];
@@ -56,13 +59,13 @@ export default function EmberField() {
     };
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = lite ? 1 : Math.min(window.devicePixelRatio || 1, 2);
       w = canvas.clientWidth;
       h = canvas.clientHeight;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(150, Math.max(40, Math.floor((w * h) / 9000)));
+      const count = Math.min(lite ? 55 : 130, Math.max(30, Math.floor((w * h) / 9000)));
       embers = Array.from({ length: count }, () => spawn(undefined, Math.random() * h));
     };
 
@@ -111,10 +114,15 @@ export default function EmberField() {
     };
 
     const loop = (now: number) => {
-      frame(now);
+      if (!lite || now - last >= 32) {
+        last = now;
+        frame(now);
+      }
       raf = visible && !document.hidden ? requestAnimationFrame(loop) : 0;
     };
     const start = () => {
+      // Wait until the first-load screen has lifted.
+      if (document.documentElement.classList.contains("is-loading")) return;
       if (!raf && !reduce) raf = requestAnimationFrame(loop);
     };
 
@@ -148,6 +156,7 @@ export default function EmberField() {
       gold = readVar("--particle-b", "#d4af37");
       dark = document.documentElement.classList.contains("dark");
       if (reduce) frame(0);
+      else if (visible) start(); // begins once the loader lifts (html class change)
     });
     let resizeTimer = 0;
     const onResize = () => {

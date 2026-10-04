@@ -787,3 +787,36 @@ html:not(.is-loading) #preloader {
     animation: none;
   }
 }
+
+/* ---------- Performance: compositor-only rotation + off-screen pausing ---------- */
+.rot-cw,
+.rot-ccw {
+  animation-name: spin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+.rot-ccw {
+  animation-direction: reverse;
+}
+.rot-80 { animation-duration: 80s; }
+.rot-50 { animation-duration: 50s; }
+.rot-6 { animation-duration: 6s; }
+
+/* Sections marked data-anim pause every animation inside while off screen */
+.anim-off,
+.anim-off * {
+  animation-play-state: paused !important;
+}
+
+/* The loader's animations stop once it has lifted */
+html:not(.is-loading) #preloader * {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rot-cw,
+  .rot-ccw {
+    animation: none;
+  }
+}

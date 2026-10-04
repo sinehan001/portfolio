@@ -11,7 +11,7 @@ export default function Preloader() {
 
       {/* Iron: arc reactor */}
       <div className="stark-only flex flex-col items-center gap-5" aria-hidden="true">
-        <svg viewBox="0 0 120 120" className="h-28 w-28" style={{ filter: "drop-shadow(0 0 18px rgba(56,189,248,0.55))" }}>
+        <svg viewBox="0 0 120 120" className="h-28 w-28">
           <circle cx="60" cy="60" r="56" fill="#12171c" stroke="#b3121d" strokeWidth="4" />
           <circle cx="60" cy="60" r="49" fill="none" stroke="#e3ad2f" strokeWidth="1.5" strokeOpacity="0.8" />
           <g className="pl-spin">
@@ -27,7 +27,7 @@ export default function Preloader() {
 
       {/* Doom: emerald */}
       <div className="doom-only flex flex-col items-center gap-5" aria-hidden="true">
-        <svg viewBox="0 0 120 120" className="h-28 w-28" style={{ filter: "drop-shadow(0 0 18px rgba(61,220,132,0.55))" }}>
+        <svg viewBox="0 0 120 120" className="h-28 w-28">
           <g className="pl-spin" style={{ animationDuration: "6s" }}>
             <polygon points="60,4 108.5,32 108.5,88 60,116 11.5,88 11.5,32" fill="none" stroke="#c9971c" strokeWidth="3" strokeLinejoin="round" />
           </g>

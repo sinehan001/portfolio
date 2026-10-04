@@ -164,7 +164,7 @@ export default function PowerCore({
             </filter>
           </defs>
 
-          <circle cx={C} cy={C} r="198" fill="url(#pc-aura)" className="core-breathe" />
+          <circle cx={C} cy={C} r="198" fill="url(#pc-aura)" />
 
           {/* Housing: red casing, gold rings, six bolts */}
           <circle cx={C} cy={C} r="186" fill="url(#pc-red)" stroke="url(#pc-gold)" strokeWidth="4" />
@@ -285,7 +285,7 @@ export default function PowerCore({
             </filter>
           </defs>
 
-          <circle cx={C} cy={C} r="196" fill="url(#pg-aura)" className="core-breathe" />
+          <circle cx={C} cy={C} r="196" fill="url(#pg-aura)" />
 
           {/* Gold bezel with prongs and filigree */}
           <polygon points={hex(186)} fill="url(#pg-gold)" stroke="#3b2a05" strokeWidth="2" strokeLinejoin="round" />
@@ -336,7 +336,7 @@ export default function PowerCore({
             onKeyDown={onCoreKey}
             className="cursor-pointer outline-none">
             <g key={surge} className={surge ? "core-surge" : undefined}>
-              <polygon points={hex(66)} fill="url(#pg-table)" stroke="#eafff3" strokeWidth="1.5" strokeLinejoin="round" filter="url(#pg-glow)" className="core-breathe" />
+              <polygon points={hex(66)} fill="url(#pg-table)" stroke="#eafff3" strokeWidth="1.5" strokeLinejoin="round" filter="url(#pg-glow)" />
               {Array.from({ length: 3 }, (_, i) => {
                 const [x1, y1] = pt(66, -90 + i * 60);
                 const [x2, y2] = pt(66, 90 + i * 60);

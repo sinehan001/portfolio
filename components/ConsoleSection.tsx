@@ -13,7 +13,7 @@ const SECRETS = [
 
 export default function ConsoleSection() {
   return (
-    <section id="console" aria-labelledby="console-title" className="relative py-24 md:py-28">
+    <section id="console" data-anim aria-labelledby="console-title" className="relative py-24 md:py-28">
       <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-12 px-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <Reveal>
           <Ornament className="mb-6" />

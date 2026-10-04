@@ -366,7 +366,7 @@ export default function Terminal() {
             key={s}
             type="button"
             onClick={() => exec(s)}
-            className="rounded-full border border-line bg-surface/60 px-2.5 py-1 font-mono backdrop-blur transition hover:border-accent hover:text-fg"
+            className="rounded-full border border-line bg-surface px-2.5 py-1 font-mono transition hover:border-accent hover:text-fg"
           >
             {s}
           </button>

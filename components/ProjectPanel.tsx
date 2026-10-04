@@ -1,13 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import { motion, useInView } from "framer-motion";
 import type { Project } from "@/lib/content";
 import ArchDiagram from "./ArchDiagram";
-import RagDemo from "./demos/RagDemo";
-import LiveDashboard from "./demos/LiveDashboard";
-import QueueSim from "./demos/QueueSim";
-import MigrationSim from "./demos/MigrationSim";
+// Demos are code-split and only load when their card nears the viewport.
+const DemoLoading = () => (
+  <div className="shimmer h-[380px] rounded-xl border border-line" aria-label="Loading demo" role="status" />
+);
+const RagDemo = dynamic(() => import("./demos/RagDemo"), { ssr: false, loading: DemoLoading });
+const LiveDashboard = dynamic(() => import("./demos/LiveDashboard"), { ssr: false, loading: DemoLoading });
+const QueueSim = dynamic(() => import("./demos/QueueSim"), { ssr: false, loading: DemoLoading });
+const MigrationSim = dynamic(() => import("./demos/MigrationSim"), { ssr: false, loading: DemoLoading });
 
 const DEMOS = {
   rag: RagDemo,
@@ -22,11 +27,13 @@ export default function ProjectPanel({ project, index }: { project: Project; ind
     ...(project.architecture ? (["arch"] as const) : []),
   ];
   const [tab, setTab] = useState<(typeof tabs)[number]>(tabs[0]);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const near = useInView(panelRef, { once: true, margin: "400px 0px" });
   if (!tabs.length) return null;
   const Demo = project.demo ? DEMOS[project.demo] : null;
 
   return (
-    <div className="rounded-2xl border border-line bg-bg/60 p-4 md:p-5" data-cursor="Play">
+    <div ref={panelRef} className="rounded-2xl border border-line bg-bg/60 p-4 md:p-5" data-cursor="Play">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <div role="tablist" aria-label="Project views" className="inline-flex rounded-full border border-line p-0.5">
           {tabs.map((t) => (
@@ -62,7 +69,7 @@ export default function ProjectPanel({ project, index }: { project: Project; ind
         {tab === "demo" && Demo ? (
           <>
             {project.demoLabel && <p className="mb-4 text-xs text-muted">{project.demoLabel}</p>}
-            <Demo />
+            {near ? <Demo /> : <DemoLoading />}
           </>
         ) : project.architecture ? (
           <ArchDiagram data={project.architecture} />
