@@ -213,7 +213,7 @@ export default function DualMask() {
       </svg>
 
       <div className="relative" style={{ perspective: "1000px" }}>
-        <div className="mask-face mask-stark">
+        <div className="mask-face mask-stark keep-transition">
           <svg viewBox="0 0 1588 1540" className="h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)]" aria-hidden="true">
             <g transform={`translate(${CENTRE - AXIS.iron},0)`}>
               <Half side="iron" mirrored={false} eyeRef={ironA} />
@@ -221,7 +221,7 @@ export default function DualMask() {
             </g>
           </svg>
         </div>
-        <div className="mask-face mask-doom absolute inset-0">
+        <div className="mask-face mask-doom keep-transition absolute inset-0">
           <svg viewBox="0 0 1588 1540" className="h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)]" aria-hidden="true">
             <g transform={`translate(${CENTRE - AXIS.doom},0)`}>
               <Half side="doom" mirrored={false} eyeRef={doomA} />

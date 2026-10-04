@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, type KeyboardEvent } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { strike } from "@/lib/doom";
 
 type Group = { title: string; count: number };
@@ -49,6 +49,9 @@ export default function PowerCore({
   const [hover, setHover] = useState<number | null>(null);
   const [surge, setSurge] = useState(0);
   const coreRef = useRef<HTMLDivElement>(null);
+  // One observer on the whole reactor: some mobile browsers do not report
+  // intersection for individual SVG groups, which left plates invisible.
+  const shown = useInView(coreRef, { once: true, margin: "0px 0px -15% 0px" });
   const six = groups.slice(0, 6);
   const activeIndex = six.findIndex((g) => g.title === selected);
   const lit = (k: number) => k === activeIndex || k === hover;
@@ -94,15 +97,13 @@ export default function PowerCore({
     const [dx, dy] = [Math.cos(rad(mid(k))) * 60, Math.sin(rad(mid(k))) * 60];
     return {
       initial: reduce ? false : ({ opacity: 0, x: dx, y: dy } as const),
-      whileInView: { opacity: 1, x: 0, y: 0 },
-      viewport: { once: true, margin: "-80px" },
+      animate: shown || reduce ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: dx, y: dy },
       transition: { duration: 0.7, delay: 0.15 + k * 0.08, ease: [0.2, 0.8, 0.2, 1] as const },
     };
   };
   const coreEnter = {
     initial: reduce ? false : ({ opacity: 0, scale: 0.3 } as const),
-    whileInView: { opacity: 1, scale: 1 },
-    viewport: { once: true, margin: "-80px" },
+    animate: shown || reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.3 },
     transition: { duration: 0.8, delay: 0.75, type: "spring" as const, stiffness: 160, damping: 14 },
   };
 

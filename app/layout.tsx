@@ -5,6 +5,7 @@ import CustomCursor from "@/components/CustomCursor";
 import CommandPalette from "@/components/CommandPalette";
 import LightningLayer from "@/components/doom/LightningLayer";
 import FaviconSync from "@/components/FaviconSync";
+import Preloader from "@/components/Preloader";
 import "./globals.css";
 
 const inter = Inter({
@@ -56,15 +57,23 @@ export const viewport: Viewport = {
 };
 
 // Runs before paint: Iron (light) by default; Doom (dark) only if the visitor chose it.
-const themeScript = `try{if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}`;
+const themeScript = `document.documentElement.classList.add("is-loading");try{if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}`;
+
+// Lifts the first-load screen once fonts and assets are ready (min 900ms, max 4.5s).
+const loaderScript = `(function(){var d=document.documentElement,done=false;function hide(){if(done)return;done=true;d.classList.remove("is-loading")}var min=new Promise(function(r){setTimeout(r,900)});var load=new Promise(function(r){if(document.readyState==="complete")r();else window.addEventListener("load",r,{once:true})});var fonts=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();Promise.all([min,load,fonts]).then(hide,hide);setTimeout(hide,4500)})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${cinzel.variable} ${rajdhani.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <noscript>
+          <style>{"#preloader{display:none}"}</style>
+        </noscript>
       </head>
       <body className="antialiased">
+        <Preloader />
+        <script dangerouslySetInnerHTML={{ __html: loaderScript }} />
         {children}
         <FaviconSync />
         <LightningLayer />

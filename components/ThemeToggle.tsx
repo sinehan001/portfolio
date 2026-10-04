@@ -35,7 +35,7 @@ export default function ThemeToggle() {
       style={{ perspective: "320px" }}
     >
       <span
-        className="relative block h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.3,1.4,0.5,1)] group-hover:scale-110"
+        className="keep-transition relative block h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.3,1.4,0.5,1)] group-hover:scale-110"
         style={{ transformStyle: "preserve-3d", transform: dark ? "rotateY(180deg)" : "rotateY(0deg)" }}
       >
         {/* Iron face: arc reactor */}
