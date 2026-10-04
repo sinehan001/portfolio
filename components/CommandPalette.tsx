@@ -142,7 +142,7 @@ export default function CommandPalette() {
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.18 }}
           >
-            <div className="flex items-center gap-3 border-b border-line px-4">
+            <div className="flex items-center gap-3 border-b border-line px-4 transition-colors focus-within:border-accent">
               <svg
                 aria-hidden="true"
                 viewBox="0 0 24 24"
@@ -168,7 +168,7 @@ export default function CommandPalette() {
                 aria-activedescendant={filtered[active] ? `palette-${active}` : undefined}
                 role="combobox"
                 aria-expanded="true"
-                className="h-14 flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
+                className="h-14 flex-1 bg-transparent text-sm outline-none placeholder:text-muted focus:outline-none focus-visible:outline-none"
               />
               <kbd className="rounded border border-line px-1.5 py-0.5 font-mono text-[10px] text-muted">
                 ESC
