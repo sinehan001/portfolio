@@ -36,7 +36,7 @@ export default function Skills() {
         ref={tabsRef}
         role="group"
         aria-label="Filter skills by category"
-        className="mb-8 flex max-w-full gap-1 overflow-x-auto rounded-full border border-line bg-surface p-1 [scrollbar-width:none] max-lg:[mask-image:linear-gradient(90deg,transparent,#000_14px,#000_calc(100%-14px),transparent)] lg:flex-wrap [&::-webkit-scrollbar]:hidden"
+        className="mb-8 flex max-w-full gap-2 overflow-x-auto py-1 [scrollbar-width:none] max-lg:px-3 max-lg:[mask-image:linear-gradient(90deg,transparent,#000_12px,#000_calc(100%-12px),transparent)] lg:flex-wrap lg:overflow-visible [&::-webkit-scrollbar]:hidden"
       >
         {tabs.map((t) => (
           <button
@@ -44,8 +44,10 @@ export default function Skills() {
             type="button"
             aria-pressed={filter === t}
             onClick={() => setFilter(t)}
-            className={`relative shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm transition ${
-              filter === t ? "text-on-accent" : "text-muted hover:text-fg"
+            className={`relative shrink-0 whitespace-nowrap rounded-full border px-4 py-1.5 text-sm transition ${
+              filter === t
+                ? "border-transparent text-on-accent"
+                : "border-line bg-surface text-muted hover:border-accent hover:text-fg"
             }`}
           >
             {filter === t && (
