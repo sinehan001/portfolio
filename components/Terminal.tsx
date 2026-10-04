@@ -323,7 +323,7 @@ export default function Terminal() {
           role="log"
           aria-live="polite"
           aria-label="Terminal output"
-          className="h-72 overflow-y-auto p-4 font-mono text-[12.5px] leading-6 sm:h-80"
+          className="h-64 overflow-y-auto p-4 font-mono text-[12.5px] leading-6 sm:h-72"
         >
           {lines.map((l) =>
             l.kind === "in" ? (
@@ -336,24 +336,26 @@ export default function Terminal() {
               </div>
             ),
           )}
-          <div className="flex items-center">
-            <span className="text-accent2">λ</span>&nbsp;
-            <label htmlFor="term-input" className="sr-only">
-              Terminal command
-            </label>
-            <input
-              id="term-input"
-              ref={inputRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={onKey}
-              autoComplete="off"
-              autoCapitalize="off"
-              spellCheck={false}
-              className="min-w-0 flex-1 bg-transparent caret-[var(--accent)] outline-none"
-              placeholder="speak a command…"
-            />
-          </div>
+        </div>
+        {/* Prompt is pinned to the bottom of the window; output scrolls above it */}
+        <div className="flex items-center gap-2 border-t border-line bg-surface-2/70 px-4 py-3 font-mono text-[12.5px] transition focus-within:bg-accent-soft focus-within:shadow-[inset_0_2px_0_var(--accent)]">
+          <span className="text-accent2">λ</span>
+          <label htmlFor="term-input" className="sr-only">
+            Terminal command
+          </label>
+          <input
+            id="term-input"
+            ref={inputRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={onKey}
+            autoComplete="off"
+            autoCapitalize="off"
+            spellCheck={false}
+            className="min-w-0 flex-1 bg-transparent caret-[var(--accent)] outline-none placeholder:text-muted focus-visible:outline-none"
+            placeholder="type a command… (try help)"
+          />
+          <kbd className="hidden rounded border border-line px-1.5 py-0.5 text-[10px] text-muted sm:inline">↵ enter</kbd>
         </div>
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted">
